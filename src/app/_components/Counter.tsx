@@ -22,7 +22,7 @@ const DotPatternDemo2 = ({
   return (
     <div className="relative flex col-span-2 row-span-1 md:col-span-1 md:row-span-2 items-center justify-center overflow-hidden rounded-lg border bg-background p-20 md:shadow-xl b border-r-sky-9000 border-b-sky-900 mb-3">
      <div className='flex flex-col space-y-2'>
-      <div className='w-6 md:w-10 mx-auto'>
+      <div className='w-8 md:w-12 mx-auto'>
         {icon}
       </div>
      <p className="z-10 whitespace-pre-wrap text-center text-3xl md:text-5xl font-bold tracking-tighter text-black dark:text-white">
