@@ -14,7 +14,7 @@ function Products() {
                     products.map((e, i) => {
                         return <div style={{
                             backgroundImage: `url(${e.thumbnail})`
-                        }} key={e.title} className='col-span-1 row-span-1 h-[300px] bg-cover bg-center bg-no-repeat rounded-lg group/product relative'>
+                        }} key={e.title} className='col-span-1 row-span-1  h-[200px] sm:h-[250px] md:h-[300px] bg-cover bg-center bg-no-repeat rounded-lg group/product relative'>
                             <div className='w-[90%] h-[90%] bg-black/40 opacity-0 transition duration-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 group-hover/product:opacity-100 rounded-lg shadow-lg flex justify-around items-center'>
                                 <button className="p-[3px] relative">
                                     <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
