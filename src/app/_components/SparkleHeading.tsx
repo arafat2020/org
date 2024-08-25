@@ -5,10 +5,10 @@ import React from "react";
 
 export function SparklesPreview({ title, sparkle }: { title: string, sparkle?: boolean }) {
   return (
-    <div className={cn("h-[3rem] sm:h-[4rem] w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md",
+    <div className={cn("h-[3rem] sm:h-[4rem] w-full flex flex-col items-center justify-center overflow-hidden rounded-md",
       sparkle && "h-[6rem]"
     )}>
-      <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center text-white relative z-20">
+      <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center dark:text-white relative z-20">
         {title}
       </h1>
       <div className="w-[40rem] h-40 relative">
@@ -31,7 +31,7 @@ export function SparklesPreview({ title, sparkle }: { title: string, sparkle?: b
         }
 
         {/* Radial Gradient to prevent sharp edges */}
-        <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+        <div className="absolute inset-0 w-full h-full [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
       </div>
     </div>
   );

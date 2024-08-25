@@ -2,14 +2,14 @@
 "use client"
 
 import React from 'react'
-import { SparklesPreview } from './SparkleHeading'
 import { products } from './Hero'
+import { SparklesPreview } from './SparkleHeading'
 
 function Products() {
     return (
-        <div className='w-full h-auto px-11 mt-3'>
+        <div className='w-full h-auto mt-3 '>
             <SparklesPreview title='Showcase of Our Products' />
-            <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 grid-rows-3 gap-3 mt-3'>
+            <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 grid-rows-3 gap-3 mt-3 px-11'>
                 {
                     products.map((e, i) => {
                         return <div style={{
@@ -22,7 +22,6 @@ function Products() {
                                        View
                                     </div>
                                 </button>
-
                             </div>
                         </div>
                     })
