@@ -20,7 +20,7 @@ const DotPatternDemo2 = ({
     icon:React.ReactNode
 }) => {
   return (
-    <div className="relative flex col-span-2 row-span-1 md:col-span-1 md:row-span-2 items-center justify-center overflow-hidden rounded-lg border bg-background p-20 md:shadow-xl b border-r-sky-9000 border-b-sky-900 mb-3">
+    <div className="relative flex col-span-2 row-span-1 md:col-span-1 md:row-span-2 items-center justify-center overflow-hidden rounded-lg border bg-background p-20 md:shadow-xl b border-r-sky-9000 border-b-slate-200 dark:border-b-sky-900 mb-3 bg-slate-100 dark:bg-transparent">
      <div className='flex flex-col space-y-2'>
       <div className='w-8 md:w-12 mx-auto'>
         {icon}

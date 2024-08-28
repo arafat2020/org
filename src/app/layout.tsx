@@ -3,11 +3,11 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { cn } from '@/lib/utils'
+import { useSideBar } from '@/hooks/useSideBar'
 import { ThemeProvider } from './_components/theme-provider'
 import Nav from './_components/Nav'
+import Footer from './_components/Footer'
 import Sidebar from './_components/Sidebar'
-import { useSideBar } from '@/hooks/useSideBar'
-
 const fontSans = Inter({ subsets: ['latin'], variable: "--font-sans" })
 
 // export const metadata: Metadata = {
@@ -42,6 +42,7 @@ export default function RootLayout({
           }>
             <Nav />
             {children}
+            <Footer/>
           </div>
         </ThemeProvider>
       </body>

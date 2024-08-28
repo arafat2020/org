@@ -55,8 +55,8 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function Navigation() {
   return (
-    <NavigationMenu 
-    className="hidden md:block"
+    <NavigationMenu
+      className="hidden md:block"
     >
       <NavigationMenuList>
         <NavigationMenuItem>
@@ -69,17 +69,25 @@ export function Navigation() {
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
-                    <Logo/>
+                    <Logo />
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" title="About Us"/>
-              <ListItem href="/docs" title="Complaiance"/>
-              <ListItem href="/docs" title="Whay Us"/>
-              <ListItem href="/docs" title="Key Contents"/>
-              <ListItem href="/docs" title="Job"/>
-              <ListItem href="/docs" title="Job"/>
-              <ListItem href="/docs" title="Sister Concern"/>
+              <Link href="/about-us">
+                <ListItem title="About Us" />
+              </Link>
+              <Link href="/compliance">
+                <ListItem href="/docs" title="Compliance" />
+              </Link>
+              <Link href="why-us">
+                <ListItem title="Why Us" />
+              </Link>
+              <Link href="/key-contact">
+                <ListItem href="/docs" title="Key Contacts" />
+              </Link>
+              <Link href="/job">
+                <ListItem href="/docs" title="Job" />
+              </Link>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -100,9 +108,9 @@ export function Navigation() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
+          <Link href="/contact" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Contect Us
+              Contact Us
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
