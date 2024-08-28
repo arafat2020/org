@@ -41,7 +41,7 @@ const About = () => {
 
         <h2 className="text-xl font-semibold mt-8 mb-4">Join Our Community</h2>
         <p>
-          We invite you to join the Gurmant community. Whether you're a home cook or a professional chef, our products are designed to help you create delicious and memorable meals. Follow us on social media, sign up for our newsletter, and be a part of our journey in celebrating culinary excellence.
+          We invite you to join the Gurmant community. Whether you&apos; re a home cook or a professional chef, our products are designed to help you create delicious and memorable meals. Follow us on social media, sign up for our newsletter, and be a part of our journey in celebrating culinary excellence.
         </p>
       </section>
     </main>
