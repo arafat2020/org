@@ -5,16 +5,18 @@ import React, { useState } from "react";
 
 import { trpc } from "./client";
 import { URL } from "./settings";
+import useOrigin from "@/hooks/useOrigin";
 
 
 
 export default function TRPCProvider({ children }: { children: React.ReactNode }) {
+  const origin = useOrigin()
   const [queryClient] = useState(() => new QueryClient({}));
   const [trpcClient] = useState(() =>
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: `${URL.DEV}/api/trpc`,
+          url: `${origin}/api/trpc`,
         }),
       ],
     })
