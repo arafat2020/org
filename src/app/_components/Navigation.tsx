@@ -1,5 +1,4 @@
 "use client"
-
 import * as React from "react"
 import Link from "next/link"
 
@@ -14,46 +13,17 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import Logo from "./Logo"
+import { trpc } from "../_trpc/client"
+import { Loader2 } from "lucide-react"
 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-  {
-    title: "Progress",
-    href: "/docs/primitives/progress",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
-]
 
 export function Navigation() {
+  const { data, isLoading } = trpc.getCategories.useQuery();
+
+  if (isLoading) {
+    return <Loader2 className="w-6 h-6 text-slate-200 animate-spin" />
+  }
+
   return (
     <NavigationMenu
       className="hidden md:block"
@@ -94,14 +64,20 @@ export function Navigation() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Components</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[550px] ">
+              {data?.map((component) => (
                 <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
+                  key={component.id}
+                  title={component.name}
+                  className="line-clamp-none"
                 >
-                  {component.description}
+                  {
+                    component.subCategory.map(e => {
+                      return <div role="button" className="text-center py-1 border border-x-0 border-t-0 border-b-cyan-900 duration-300 hover:scale-110 dark:hover:text-slate-50 hover:text-slate-950" key={e.id}>
+                        {e.name}
+                      </div>
+                    })
+                  }
                 </ListItem>
               ))}
             </ul>
@@ -142,7 +118,7 @@ const ListItem = React.forwardRef<
           {...props}
         >
           <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <p className=" text-sm leading-snug text-muted-foreground">
             {children}
           </p>
         </a>

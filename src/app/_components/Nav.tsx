@@ -15,9 +15,9 @@ function Nav() {
         <Link href="/">
           <Logo />
         </Link>
-        <Navigation />
       </div>
       <div className='flex items-center space-x-3'>
+        <Navigation />
         <ModeToggle />
         <Menu
           role='button'

@@ -8,6 +8,7 @@ import { ThemeProvider } from './_components/theme-provider'
 import Nav from './_components/Nav'
 import Footer from './_components/Footer'
 import Sidebar from './_components/Sidebar'
+import TRPCProvider from './_trpc/Providor'
 const fontSans = Inter({ subsets: ['latin'], variable: "--font-sans" })
 
 // export const metadata: Metadata = {
@@ -27,24 +28,26 @@ export default function RootLayout({
         "w-screen h-screen bg-background font-sans antialiased",
         fontSans.variable
       )}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Sidebar/>
-          <div className={
-            cn(
-              "w-full h-full overflow-x-auto dark:bg-slate-950 transition duration-300",
-              sidebar.isOpen && "blur-lg"
+        <TRPCProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Sidebar />
+            <div className={
+              cn(
+                "w-full h-full overflow-x-auto dark:bg-slate-950 transition duration-300",
+                sidebar.isOpen && "blur-lg"
               )
-          }>
-            <Nav />
-            {children}
-            <Footer/>
-          </div>
-        </ThemeProvider>
+            }>
+              <Nav />
+              {children}
+              <Footer />
+            </div>
+          </ThemeProvider>
+        </TRPCProvider>
       </body>
     </html>
   )
