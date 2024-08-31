@@ -31,8 +31,6 @@ model Product {
   id            String          @id @default(uuid())
   name          String
   description   String
-  price         Int
-  discount      Int?
   catagoryId    String?
   primaryImg    String
   showcaseImg   ShowcaseImage[]

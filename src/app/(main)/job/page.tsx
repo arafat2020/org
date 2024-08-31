@@ -1,6 +1,6 @@
 import React from 'react'
 import { JobForm } from './_components/JobForm'
-import { SparklesPreview } from '../_components/SparkleHeading'
+import { SparklesPreview } from '../../_components/SparkleHeading'
 
 function page() {
   return (

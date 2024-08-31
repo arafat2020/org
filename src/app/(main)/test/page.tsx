@@ -1,6 +1,6 @@
 "use client"
 import { Loader2 } from "lucide-react";
-import Logo from "../_components/Logo";
+import Logo from "../../_components/Logo";
 import { FormEvent, useState } from "react";
 
 export default function Loading() {
