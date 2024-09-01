@@ -22,7 +22,7 @@ export const appRouter = route({
                         name: true
                     }
                 }
-            }
+            },
         })
 
         return categories

@@ -6,6 +6,8 @@ import TRPCProvider from "./_trpc/Providor"
 import { ThemeProvider } from "./_components/theme-provider"
 import { cn } from "@/lib/utils"
 const fontSans = Inter({ subsets: ['latin'], variable: "--font-sans" })
+import { Toaster } from 'sonner'
+
 
 
 function RootLayout({ children }: { children: ReactNode }) {
@@ -25,6 +27,7 @@ function RootLayout({ children }: { children: ReactNode }) {
                         {children}
                     </ThemeProvider>
                 </TRPCProvider>
+                <Toaster closeButton/>
             </body>
         </html>
     )
