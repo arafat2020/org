@@ -23,7 +23,7 @@ async function Product() {
                         {
                             products.map(e => {
                                 return (
-                                    <ProductCard {...e} />                                )
+                                    <ProductCard key={e.id} {...e} />                                )
                             })
                         }
                     </div>) : (<div className='w-full'>
