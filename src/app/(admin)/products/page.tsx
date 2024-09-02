@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import ProductCard from '../_components/ProductCard'
 
 async function Product() {
     const products = await serverClient.getProducts()
@@ -22,20 +23,7 @@ async function Product() {
                         {
                             products.map(e => {
                                 return (
-                                    <Card className='row-span-1 col-span-1' key={e.id}>
-                                        <CardHeader>
-                                            <CardTitle className='line-clamp-1'>
-                                                {e.name}
-                                            </CardTitle>
-                                            <CardDescription className='line-clamp-3'>
-                                                {e.description}
-                                            </CardDescription>
-                                            <CardContent>
-                                                <Image src={e.primaryImg} alt='product' width={250} height={500} className='rounded-[30px] mx-auto py-3'/>
-                                            </CardContent>
-                                        </CardHeader>
-                                    </Card>
-                                )
+                                    <ProductCard {...e} />                                )
                             })
                         }
                     </div>) : (<div className='w-full'>

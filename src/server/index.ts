@@ -29,14 +29,34 @@ export const appRouter = route({
     }),
 
     postProduct: procedure.input(z.object({
-        name: z.string().min(1).max(70),
+        name: z.string().min(1).max(100),
         description: z.string().min(25),
         primaryImg: z.string().min(1),
         catagoryId: z.string().min(1),
         subCategoryId: z.string().min(1),
     })).mutation(async ({ input }) => {
         const data = await prisma.product.create({
-            data: input
+            data: input,
+            select: {
+                name: true,
+                id: true,
+                primaryImg: true,
+                showcaseImg: true,
+                published: true,
+                description: true,
+                SubCategory: {
+                    select: {
+                        id: true,
+                        name: true,
+                        Category: {
+                            select: {
+                                id: true,
+                                name: true
+                            }
+                        }
+                    }
+                }
+            }
         })
         return data
     }),

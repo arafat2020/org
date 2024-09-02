@@ -5,7 +5,7 @@ import { trpc } from '@/app/_trpc/client'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import React, { MouseEvent, useRef, useState } from 'react'
+import React, { MouseEvent, ReactNode, useRef, useState } from 'react'
 import {
     Select,
     SelectContent,
@@ -37,7 +37,14 @@ function Add() {
     const { data, isLoading } = trpc.getCategories.useQuery();
     const { mutate, isPending } = trpc.postProduct.useMutation({
         onError: (error) => {
-            toast.error("Failed to save")
+            toast.error(
+                <div>
+                    <p>Failed to save</p>
+                    <p>
+                        {error.message}
+                    </p>
+                </div>
+            )
         },
         onSuccess: () => {
             toast.success("Successfully Saved");
