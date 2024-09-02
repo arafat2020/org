@@ -21,7 +21,7 @@ export default function SidebarDemo({children}:{
   const links = [
     {
       label: "Products",
-      href: "#",
+      href: "/products",
       icon: (
         <FaProductHunt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
@@ -124,8 +124,8 @@ const Dashboard = ({children}:{
   children:ReactNode
 }) => {
   return (
-    <div className="flex flex-1 min-h-full overflow-y-auto">
-      <div className="p-2 md:p-10 rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full h-full">
+    <div className="flex flex-1 h-full">
+      <div className="p-2 md:p-10 rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full h-full overflow-y-auto">
         {children}
       </div>
     </div>
