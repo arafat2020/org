@@ -61,6 +61,21 @@ export const appRouter = route({
         return data
     }),
 
+    inactiveProduct: procedure.input(z.object({
+        id: z.string().min(1),
+        status: z.boolean()
+    })).mutation(async ({ input }) => {
+        const data = await prisma.product.update({
+            where: {
+                id: input.id
+            },
+            data: {
+                published: input.status
+            }
+        })
+        return data
+    }),
+
     getProducts: procedure.query(async () => {
         return prisma.product.findMany({
             include: {
