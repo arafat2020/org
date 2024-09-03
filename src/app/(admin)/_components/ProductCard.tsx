@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/tooltip"
 import { trpc } from '@/app/_trpc/client'
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 type ProductCardProp = {
     SubCategory: {
@@ -41,6 +42,7 @@ function ProductCard({
     published
 }: ProductCardProp) {
     const [active, setActive] = useState<boolean>(published);
+    const {push} = useRouter();
     const {
         mutate,
         isPending
@@ -84,7 +86,7 @@ function ProductCard({
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <FaEdit role='button' className='w-6 h-6 text-slate-200' />
+                                    <FaEdit onClick={()=>push(`/products/edit/${id}`)} role='button' className='w-6 h-6 text-slate-200' />
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>Edit</p>

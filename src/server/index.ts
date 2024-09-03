@@ -84,6 +84,17 @@ export const appRouter = route({
         })
     }),
 
+    getProductById: procedure.input(z.object({
+        id: z.string().min(1)
+    })).query(async ({ input }) => {
+        const data = await prisma.product.findUnique({
+            where: {
+                id: input.id
+            }
+        })
+        return data
+    })
+
 
 })
 
