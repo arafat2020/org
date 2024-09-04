@@ -11,7 +11,7 @@ import { trpc } from '@/app/_trpc/client'
 import { Loader2 } from 'lucide-react'
 
 async function Product() {
-    const { data, isLoading } = trpc.getProducts.useQuery();
+    const { data, isLoading } = trpc.product.getProducts.useQuery();
     if (isLoading) {
         return (
             <div className='w-full h-full flex justify-around items-center'>

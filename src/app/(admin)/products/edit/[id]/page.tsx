@@ -1,12 +1,20 @@
 "use client"
+import EditDoc from '@/app/(admin)/_components/EditDoc'
+import EditImage from '@/app/(admin)/_components/EditImage'
+import ShowCaseImage from '@/app/(admin)/_components/ShowCaseImage'
+import { SparklesPreview } from '@/app/_components/SparkleHeading'
 import { trpc } from '@/app/_trpc/client'
+import { Badge } from '@/components/ui/badge'
+import { Switch } from '@/components/ui/switch'
 import { Loader2 } from 'lucide-react'
-import React from 'react'
+import { notFound } from 'next/navigation'
+import React, { useState } from 'react'
 
 function Edit({
     params
 }: { params: { id: string } }) {
-    const { data, isLoading } = trpc.getProductById.useQuery({
+    const [editable, setEditable] = useState<boolean>(true)
+    const { data, isLoading } = trpc.product.getProductById.useQuery({
         id: params.id
     })
     if (isLoading) {
@@ -16,11 +24,23 @@ function Edit({
             </div>
         )
     }
+    if (!data) {
+        return notFound()
+    }
     return (
-        <div className='w-full h-full overflow-y-auto'>
-            <div className='w-full flex space-x-3'>
-                <img src={data?.primaryImg} alt="product" className='w-1/3 rounded-[20px] ' />
+        <div className='w-full h-full relative'>
+            <div className='flex p-1 rounded-full absolute top-0 right-0 space-x-3'>
+                <Badge variant={!editable ? "default" : "outline"}>{!editable ? "Edit mode enabled" : "Enable Edit Mode"}</Badge>
+                <Switch onCheckedChange={e => {
+                    setEditable(!e)
+                }} />
             </div>
+            <h1 className='text-3xl font-sans font-bold py-3'>Edit and Save Product</h1>
+            <div className='w-full flex space-x-3'>
+                <EditImage img={data.primaryImg} id={data.id} edit={editable} />
+                <EditDoc id={data.id} title={data.name} description={data.description} edit={editable} />
+            </div>
+            <ShowCaseImage id={data.id} img={data.showcaseImg}/>
         </div>
     )
 }

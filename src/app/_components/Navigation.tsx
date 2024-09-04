@@ -18,7 +18,7 @@ import { Loader2 } from "lucide-react"
 
 
 export function Navigation() {
-  const { data, isLoading } = trpc.getCategories.useQuery();
+  const { data, isLoading } = trpc.category.getCategories.useQuery();
 
   if (isLoading) {
     return <Loader2 className="w-6 h-6 text-slate-200 animate-spin" />

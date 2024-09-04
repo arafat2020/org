@@ -5,7 +5,7 @@ import { trpc } from '@/app/_trpc/client'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import React, { MouseEvent, ReactNode, useRef, useState } from 'react'
+import React, { MouseEvent, useRef, useState } from 'react'
 import {
     Select,
     SelectContent,
@@ -34,8 +34,8 @@ function Add() {
         catagoryId: "",
         subCategoryId: ""
     });
-    const { data, isLoading } = trpc.getCategories.useQuery();
-    const { mutate, isPending } = trpc.postProduct.useMutation({
+    const { data, isLoading } = trpc.category.getCategories.useQuery();
+    const { mutate, isPending } = trpc.product.postProduct.useMutation({
         onError: (error) => {
             toast.error(
                 <div>
