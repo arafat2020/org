@@ -51,12 +51,23 @@ export const productRouter = route({
         return data
     }),
 
-    getProducts: procedure.query(async () => {
-        return prisma.product.findMany({
+    getProducts: procedure.input(
+        z.object({
+            page: z.optional(z.number())
+        })
+    ).query(async ({ input }) => {
+        const data = await prisma.product.findMany({
             include: {
                 SubCategory: true,
-            }
+            },
+            take: 6,
+            skip: 6 * (input.page ? input.page : 0)
         })
+        const count = await prisma.product.count()
+        return {
+            data,
+            count
+        }
     }),
 
     getProductById: procedure.input(z.object({
@@ -119,11 +130,110 @@ export const productRouter = route({
         productId: z.string().min(1),
     })).mutation(async ({ input }) => {
         const data = prisma.showcaseImage.delete({
-            where:{
+            where: {
                 id: input.id,
                 productId: input.productId
             }
         })
         return data
+    }),
+
+    setForHomePage: procedure.input(z.object({
+        id: z.string().min(1),
+        setForHome: z.boolean()
+    })).mutation(async ({ input }) => {
+        const data = await prisma.product.update({
+            where: {
+                id: input.id
+            },
+            data: {
+                showInHomePage: input.setForHome
+            }
+        })
+
+        return data
+    }),
+
+    searchOrFilter: procedure.input(z.object({
+        title: z.optional(z.string()),
+        categoryID: z.optional(z.string()),
+        subCategoryId: z.optional(z.string()),
+    })).mutation(async ({ input }) => {
+        const {
+            categoryID,
+            subCategoryId,
+            title
+        } = input
+        const data = await prisma.product.findMany({
+            where: {
+                name: {
+                    contains: title
+                },
+                catagoryId: categoryID,
+                subCategoryId: subCategoryId
+            },
+            include: {
+                SubCategory: true
+            }
+        })
+
+        return data
+    }),
+
+    getProductForShowById: procedure.input(z.object({
+        productId: z.string().min(1)
+    })).mutation(async ({ input }) => {
+        const product = await prisma.product.findUnique({
+            where: {
+                id: input.productId
+            }
+        })
+
+        const simileProduct = await prisma.product.findMany({
+            where: {
+                subCategoryId: product?.subCategoryId
+            }
+        })
+
+        return {
+            product,
+            simileProduct
+        }
+    }),
+
+    getProductForShowBySubcategory: procedure.input(z.object({
+        subcategoryId: z.string().min(1),
+        searchTerm: z.optional(z.string())
+    })).mutation(async ({ input }) => {
+        const products = await prisma.product.findMany({
+            where: {
+                subCategoryId: input.subcategoryId,
+                name:{
+                    contains: input.searchTerm
+                },
+                published:true
+            },
+            include: {
+                SubCategory: {
+                    include: {
+                        Category: true
+                    }
+                }
+            }
+        })
+
+        const subCategory = await prisma.subCategory.findUnique({
+            where: {
+                id: input.subcategoryId
+            },
+            include: {
+                Category: true
+            }
+        })
+
+        return {
+            products,
+            subCategory
+        }
     })
 })

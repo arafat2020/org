@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -28,15 +29,16 @@ model SubCategory {
 }
 
 model Product {
-  id            String          @id @default(uuid())
-  name          String
-  description   String
-  catagoryId    String?
-  primaryImg    String
-  showcaseImg   ShowcaseImage[]
-  SubCategory   SubCategory?    @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
-  subCategoryId String?
-  published     Boolean         @default(true)
+  id             String          @id @default(uuid())
+  name           String
+  description    String
+  catagoryId     String?
+  primaryImg     String
+  showcaseImg    ShowcaseImage[]
+  SubCategory    SubCategory?    @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
+  subCategoryId  String?
+  published      Boolean         @default(true)
+  showInHomePage Boolean         @default(false)
 
   @@index([subCategoryId])
 }
@@ -46,4 +48,11 @@ model ShowcaseImage {
   img       String
   Product   Product? @relation(fields: [productId], references: [id])
   productId String?
+}
+
+model Page {
+  id      String  @id @default(uuid())
+  name    String  @unique
+  img     String?
+  content String
 }
