@@ -186,12 +186,18 @@ export const productRouter = route({
         const product = await prisma.product.findUnique({
             where: {
                 id: input.productId
+            },
+            include:{
+                showcaseImg: true
             }
         })
 
         const simileProduct = await prisma.product.findMany({
             where: {
                 subCategoryId: product?.subCategoryId
+            },
+            include:{
+                SubCategory: true
             }
         })
 

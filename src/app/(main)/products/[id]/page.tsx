@@ -13,6 +13,7 @@ import {
 import { FaSearch } from 'react-icons/fa'
 import { Loader2 } from 'lucide-react'
 import { useDebounceCallback } from 'usehooks-ts'
+import { useRouter } from 'next/navigation'
 
 
 function page({ params }: { params: { id: string } }) {
@@ -22,6 +23,7 @@ function page({ params }: { params: { id: string } }) {
             subcategoryId: params.id
         })
     }, [])
+    const { push } = useRouter() 
     const search = useDebounceCallback((e)=>{
         mutate({
             subcategoryId: params.id,
@@ -44,7 +46,7 @@ function page({ params }: { params: { id: string } }) {
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
-            <div className='w-1/3 mx-auto mt-4 flex space-x-2 h-[40px] p-[10px] rounded-full items-center border border-cyan-900'>
+            <div className='w-1/2 md:w-1/3 mx-auto mt-4 flex flex-col md:flex-row space-x-2 h-[40px] p-[10px] rounded-full items-center border border-cyan-900'>
                 <input onChange={e=>search(e.target.value)} type="text" name="" id="" className='flex-grow bg-transparent outline-none' />
                 <FaSearch className='w-6 h-6 text-cyan-900' />
             </div>
@@ -62,7 +64,7 @@ function page({ params }: { params: { id: string } }) {
                             backgroundImage: `url(${e.primaryImg})`
                         }} key={e.id} className='col-span-1 row-span-1  h-[200px] sm:h-[250px] md:h-[300px] bg-cover bg-center bg-no-repeat rounded-lg group/product relative'>
                             <div className='w-[90%] h-[90%] bg-black/40 opacity-0 transition duration-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 group-hover/product:opacity-100 rounded-lg shadow-lg flex justify-around items-center'>
-                                <button className="p-[3px] relative">
+                                <button onClick={()=>push(`/products/details/${e.id}`)} className="p-[3px] relative">
                                     <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
                                     <div className="px-8 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
                                         View
