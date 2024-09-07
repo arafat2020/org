@@ -29,6 +29,7 @@ type ProductCardProp = {
     primaryImg: string;
     subCategoryId: string | null;
     published: boolean;
+    showInHomePage: boolean
 }
 
 
@@ -39,17 +40,37 @@ function ProductCard({
     primaryImg,
     id,
     SubCategory,
-    published
+    published,
+    showInHomePage
 }: ProductCardProp) {
     const [active, setActive] = useState<boolean>(published);
-    const {push} = useRouter();
+    const [setForHom, setSetForHome] = useState<boolean>(showInHomePage);
+    const { push } = useRouter();
     const {
         mutate,
-        isPending
-    } = trpc.inactiveProduct.useMutation({
+    } = trpc.product.inactiveProduct.useMutation({
         onSuccess: (data) => {
             setActive(data.published)
             toast.success(`Product set to ${data.published ? "Active" : "Inactive"}`)
+        },
+        onError: (error) => {
+            toast.error(
+                <div>
+                    <p>Failed To Perform Operation...</p>
+                    <p>{error.message}</p>
+                </div>
+            )
+        }
+    })
+
+    const {
+        mutate: setAsHomeShowCase,
+    } = trpc.product.setForHomePage.useMutation({
+        onSuccess: (data) => {
+            setSetForHome(data.showInHomePage)
+            toast.success(
+                data.showInHomePage? "Product Set For Home page showcase": "Product unset form homepage showcase"
+            )
         },
         onError: (error) => {
             toast.error(
@@ -74,19 +95,29 @@ function ProductCard({
                     <p className='italic'>#{SubCategory?.name}</p>
                 </CardContent>
                 <CardFooter className='flex justify-between items-center'>
-                    <div className='flex space-x-3 p-1 rounded-full border shadow-inner'>
-                        <Badge variant={active ? "default" : "destructive"}>{active ? "Active" : "Inactive"}</Badge><Switch onCheckedChange={e => {
-                            mutate({
+                    <div className='flex-flex-col space-y-3'>
+                        <div className='flex space-x-3 p-1 w-fit rounded-full border shadow-inner'>
+                            <Badge variant={active ? "default" : "destructive"}>{active ? "Active" : "Inactive"}</Badge><Switch onCheckedChange={e => {
+                                mutate({
+                                    id,
+                                    status: e
+                                })
+                            }} defaultChecked={active} />
+                        </div>
+                        <div className='flex space-x-3 p-1 rounded-full border shadow-inner'>
+                        <Badge variant={setForHom ? "custom" : "default"}>{setForHom ? "Set for home" : "Unset for home"}</Badge><Switch onCheckedChange={e => {
+                            setAsHomeShowCase({
                                 id,
-                                status: e
+                                setForHome: e
                             })
-                        }} defaultChecked={active} />
+                        }} defaultChecked={setForHom} />
+                    </div>
                     </div>
                     <div className='flex space-x-2'>
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <FaEdit onClick={()=>push(`/products/edit/${id}`)} role='button' className='w-6 h-6 text-slate-200' />
+                                    <FaEdit onClick={() => push(`/products/edit/${id}`)} role='button' className='w-6 h-6 text-slate-200' />
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>Edit</p>

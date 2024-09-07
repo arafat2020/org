@@ -15,11 +15,12 @@ import {
 import Logo from "./Logo"
 import { trpc } from "../_trpc/client"
 import { Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 
 export function Navigation() {
   const { data, isLoading } = trpc.category.getCategories.useQuery();
-
+  const { push } = useRouter()
   if (isLoading) {
     return <Loader2 className="w-6 h-6 text-slate-200 animate-spin" />
   }
@@ -62,7 +63,7 @@ export function Navigation() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Our Products</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[550px] ">
               {data?.map((component) => (
@@ -73,7 +74,7 @@ export function Navigation() {
                 >
                   {
                     component.subCategory.map(e => {
-                      return <div role="button" className="text-center py-1 border border-x-0 border-t-0 border-b-cyan-900 duration-300 hover:scale-110 dark:hover:text-slate-50 hover:text-slate-950" key={e.id}>
+                      return <div onClick={()=>push(`/products/${e.id}`)} role="button" className="text-center py-1 border border-x-0 border-t-0 border-b-cyan-900 duration-300 hover:scale-110 dark:hover:text-slate-50 hover:text-slate-950" key={e.id}>
                         {e.name}
                       </div>
                     })
