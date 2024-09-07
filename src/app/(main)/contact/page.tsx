@@ -1,9 +1,37 @@
-import React from 'react';
+
+"use client"
+
+import React, { useRef } from 'react';
 import { BottomGradient, LabelInputContainer } from '../job/_components/JobForm';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { useForm, SubmitHandler } from "react-hook-form"
+import { trpc } from '@/app/_trpc/client';
+import { Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
+
 
 const Contact = () => {
+    type ContactInput = {
+        name: string,
+        email: string,
+        message: string
+    }
+    const {
+        register,
+        handleSubmit,
+    } = useForm<ContactInput>();
+    const inputRef = useRef<HTMLFormElement>(null)
+    const { mutate, isPending } = trpc.mail.sendMail.useMutation({
+        onSuccess:()=>{
+            toast.success("Mail has sent, please wait for response")
+            inputRef.current?.reset()
+        },
+        onError:()=>{
+            toast.error("Something is went wrong")
+        }
+    })
+    const onSubmit: SubmitHandler<ContactInput> = (data) => mutate(data)
     return (
         <div className="min-h-screen w-full bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-gray-100">
             <header className="p-4 flex justify-between items-center border-b">
@@ -35,21 +63,21 @@ const Contact = () => {
                     {/* Contact Form Section */}
                     <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-lg">
                         <h2 className="text-xl font-semibold mb-4">Get in Touch</h2>
-                        <form className="space-y-4 text-gray-700 dark:text-gray-100">
+                        <form ref={inputRef} onSubmit={handleSubmit(onSubmit)} className="space-y-4 text-gray-700 dark:text-gray-100">
                             <LabelInputContainer className="mb-4">
                                 <Label htmlFor="Full Name">Full Name</Label>
-                                <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+                                <Input {...register("name", { required: true })} placeholder='Type your name' type="text" />
                             </LabelInputContainer>
                             <LabelInputContainer className="mb-4">
                                 <Label htmlFor="email">Email Address</Label>
-                                <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+                                <Input {...register("email", { required: true })} placeholder="projectmayhem@fc.com" type="email" />
                             </LabelInputContainer>
                             <div>
                                 <label htmlFor="message" className="block text-sm font-medium">
                                     Message
                                 </label>
                                 <textarea
-                                    id="message"
+                                    {...register("message", { required: true })}
                                     rows={4}
                                     className="mt-1 block w-full px-3 py-2 bg-slate-950 rounded-md shadow-sm focus:outline-none focus:ring-slate-500 focus:border-slate-500 sm:text-sm"
                                     placeholder="Your Message"
@@ -61,7 +89,7 @@ const Contact = () => {
                                     className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
                                     type="submit"
                                 >
-                                   Submit
+                                    {isPending ? <Loader2 className='w-6 h-6 animate-spin mx-auto'/> : "Submit"}
                                     <BottomGradient />
                                 </button>
                             </div>

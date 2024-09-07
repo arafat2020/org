@@ -16,7 +16,7 @@ import { useDebounceCallback } from 'usehooks-ts'
 import { useRouter } from 'next/navigation'
 
 
-function page({ params }: { params: { id: string } }) {
+function Product({ params }: { params: { id: string } }) {
     const { mutate, isPending, data } = trpc.product.getProductForShowBySubcategory.useMutation()
     useEffect(() => {
         mutate({
@@ -82,4 +82,4 @@ function page({ params }: { params: { id: string } }) {
     )
 }
 
-export default page
+export default Product

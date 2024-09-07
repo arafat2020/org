@@ -42,7 +42,7 @@ function Details({ params }: { params: { id: string } }) {
                     <div className='w-full mt-4 grid grid-cols-3 lg:grid-cols-5 grid-rows-1 gap-3'>
                         {
                             data?.product?.showcaseImg.map(e => (
-                                <div onMouseEnter={() => {
+                                <div key={e.id} onMouseEnter={() => {
                                     setImg(e.img)
                                 }} style={{
                                     backgroundImage: `url(${e.img})`
@@ -58,7 +58,7 @@ function Details({ params }: { params: { id: string } }) {
             <Marquee pauseOnHover className='[--duration:20s]'>
                 {
                     data?.simileProduct.map(e=>(
-                        <figure
+                        <figure key={e.id}
                         className={cn(
                           "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
                           // light styles

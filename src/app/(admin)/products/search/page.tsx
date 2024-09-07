@@ -11,7 +11,7 @@ import React, { useState } from 'react'
 import { toast } from 'sonner';
 import ProductCard from '../../_components/ProductCard';
 
-function page() {
+function Search() {
     type SearchFilter = {
         name: string | undefined,
         categoryId: string | undefined,
@@ -127,4 +127,4 @@ function page() {
     )
 }
 
-export default page
+export default Search
