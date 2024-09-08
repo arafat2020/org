@@ -7,6 +7,7 @@ import { ThemeProvider } from "./_components/theme-provider"
 import { cn } from "@/lib/utils"
 const fontSans = Inter({ subsets: ['latin'], variable: "--font-sans" })
 import { Toaster } from 'sonner'
+import AuthProvider from "./_components/AuthProvidor"
 
 
 
@@ -17,17 +18,19 @@ function RootLayout({ children }: { children: ReactNode }) {
                 "w-screen h-screen bg-background font-sans antialiased",
                 fontSans.variable
             )}>
-                <TRPCProvider>
-                    <ThemeProvider
-                        attribute="class"
-                        defaultTheme="dark"
-                        enableSystem
-                        disableTransitionOnChange
-                    >
-                        {children}
-                    </ThemeProvider>
-                </TRPCProvider>
-                <Toaster closeButton/>
+                <AuthProvider>
+                    <TRPCProvider>
+                        <ThemeProvider
+                            attribute="class"
+                            defaultTheme="dark"
+                            enableSystem
+                            disableTransitionOnChange
+                        >
+                            {children}
+                        </ThemeProvider>
+                    </TRPCProvider>
+                </AuthProvider>
+                <Toaster closeButton />
             </body>
         </html>
     )

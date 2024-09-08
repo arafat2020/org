@@ -11,9 +11,8 @@ import { Loader2 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
-const ITEMS_PER_PAGE = 9;
 
-async function Product() {
+ function Product() {
     const query = useSearchParams();
     const { push } = useRouter();
     const currentPage = query.get("page") ? parseInt(query.get("page")!) : 1;

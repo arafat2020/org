@@ -8,12 +8,21 @@ export const mailRouter = route({
         email: z.string().min(1),
         message: z.string().min(1)
     })).mutation(async ({input}) => {
-        const mail = new Mailer(
+        const mailForRequestSender = new Mailer(
             input.email,
             "Request for contact info",
-            `${input.message}-${input.name}`
+            "We recived your request for contact. We will contact you soon in no time."
         )
 
-        return mail.sendMail()
+        const mailForRequestReceiver = new Mailer(
+            "arafatmannan2019@gmail.com",
+            `Request form ${input.name}`,
+            `${input.message}\nName: ${input.name}\nE-mail: ${input.email}`
+        )
+         
+        return {
+            sender: await mailForRequestSender.sendMail(),
+            receiver: await mailForRequestReceiver.sendMail()
+        }
     })
 })

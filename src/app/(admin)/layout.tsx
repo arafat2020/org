@@ -13,11 +13,21 @@ import { cn } from "@/lib/utils";
 import { FaProductHunt } from "react-icons/fa";
 import { MdContactPage } from "react-icons/md";
 import { IoDocumentAttach } from "react-icons/io5";
+import { useSession } from "next-auth/react";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 
-export default function SidebarDemo({children}:{
-  children:ReactNode
+export default function SidebarDemo({ children }: {
+  children: ReactNode
 }) {
+  const {
+    data,
+    status
+  } = useSession();
+  const { push } = useRouter()
+  console.log(status, data);
+
   const links = [
     {
       label: "Products",
@@ -40,15 +50,19 @@ export default function SidebarDemo({children}:{
         <IoDocumentAttach className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-    {
-      label: "Logout",
-      href: "#",
-      icon: (
-        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
+    
   ];
   const [open, setOpen] = useState(false);
+  if (status === "loading") {
+    return (
+      <div className='w-full h-full flex justify-around items-center'>
+        <Loader2 className='w-10 h-10 text-slate-100 animate-spin' />
+      </div>
+    )
+  }
+  if (status === "unauthenticated") {
+    return push('/api/auth/signin')
+  }
   return (
     <div
       className={cn(
@@ -69,17 +83,9 @@ export default function SidebarDemo({children}:{
           <div>
             <SidebarLink
               link={{
-                label: "Manu Arora",
-                href: "#",
-                icon: (
-                  <img
-                    src="https://assets.aceternity.com/manu.png"
-                    className="h-7 w-7 flex-shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="Avatar"
-                  />
-                ),
+                label: "Logout",
+                href: "/api/auth/signout",
+                icon: <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
               }}
             />
           </div>
@@ -91,7 +97,7 @@ export default function SidebarDemo({children}:{
     </div>
   );
 }
- const Logo = () => {
+const Logo = () => {
   return (
     <Link
       href="#"
@@ -108,7 +114,7 @@ export default function SidebarDemo({children}:{
     </Link>
   );
 };
- const LogoIcon = () => {
+const LogoIcon = () => {
   return (
     <Link
       href="#"
@@ -120,8 +126,8 @@ export default function SidebarDemo({children}:{
 };
 
 // Dummy dashboard component with content
-const Dashboard = ({children}:{
-  children:ReactNode
+const Dashboard = ({ children }: {
+  children: ReactNode
 }) => {
   return (
     <div className="flex flex-1 h-full">
