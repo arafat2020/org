@@ -1,6 +1,6 @@
 "use client";
-import React, { ReactNode, useState } from "react";
-import { Sidebar, SidebarBody, SidebarLink } from "../../components/ui/sidebar";
+import React, { useState } from "react";
+import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import {
   IconArrowLeft,
   IconBrandTabler,
@@ -9,61 +9,41 @@ import {
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { FaProductHunt } from "react-icons/fa";
-import { MdContactPage } from "react-icons/md";
-import { IoDocumentAttach } from "react-icons/io5";
-import { signOut, useSession } from "next-auth/react";
-import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 
-
-export default function SidebarDemo({ children }: {
-  children: ReactNode
-}) {
-  const {
-    data,
-    status
-  } = useSession();
-  const { push } = useRouter()
-  console.log(status, data);
-
+export default function SidebarDemo({children}:{children:React.ReactNode}) {
   const links = [
     {
-      label: "Products",
-      href: "/products",
+      label: "Dashboard",
+      href: "#",
       icon: (
-        <FaProductHunt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
-      label: "Pages",
+      label: "Profile",
       href: "#",
       icon: (
-        <MdContactPage className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
-      label: "Documents",
+      label: "Settings",
       href: "#",
       icon: (
-        <IoDocumentAttach className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-
+    {
+      label: "Logout",
+      href: "#",
+      icon: (
+        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
   ];
   const [open, setOpen] = useState(false);
-  if (status === "loading") {
-    return (
-      <div className='w-full h-full flex justify-around items-center'>
-        <Loader2 className='w-10 h-10 text-slate-100 animate-spin' />
-      </div>
-    )
-  }
-  if (status === "unauthenticated") {
-    return push('/api/auth/signin')
-  }
   return (
     <div
       className={cn(
@@ -82,36 +62,50 @@ export default function SidebarDemo({ children }: {
             </div>
           </div>
           <div>
-            <Button className=" flex items-center space-x-2" variant="ghost" onClick={()=>signOut()}>
-              <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" /> <span>Logout</span>
-            </Button>
+            <SidebarLink
+              link={{
+                label: "Manu Arora",
+                href: "#",
+                icon: (
+                  <img
+                    src="https://assets.aceternity.com/manu.png"
+                    className="h-7 w-7 flex-shrink-0 rounded-full"
+                    width={50}
+                    height={50}
+                    alt="Avatar"
+                  />
+                ),
+              }}
+            />
           </div>
         </SidebarBody>
       </Sidebar>
-      <Dashboard>
+      <div className="flex flex-1 h-full">
+      <div className="p-2 md:p-10 rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full h-full overflow-y-auto">
         {children}
-      </Dashboard>
+      </div>
+    </div>
     </div>
   );
 }
-const Logo = () => {
+export const Logo = () => {
   return (
     <Link
       href="#"
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
     >
-    <Logo/>
+      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="font-medium text-black dark:text-white whitespace-pre"
       >
-        Admin
+        Acet Labs
       </motion.span>
     </Link>
   );
 };
-const LogoIcon = () => {
+export const LogoIcon = () => {
   return (
     <Link
       href="#"
@@ -123,13 +117,26 @@ const LogoIcon = () => {
 };
 
 // Dummy dashboard component with content
-const Dashboard = ({ children }: {
-  children: ReactNode
-}) => {
+const Dashboard = () => {
   return (
-    <div className="flex flex-1 h-full">
-      <div className="p-2 md:p-10 rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full h-full overflow-y-auto">
-        {children}
+    <div className="flex flex-1">
+      <div className="p-2 md:p-10 rounded-tl-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 flex flex-col gap-2 flex-1 w-full h-full">
+        <div className="flex gap-2">
+          {[...new Array(4)].map((i) => (
+            <div
+              key={"first-array" + i}
+              className="h-20 w-full rounded-lg  bg-gray-100 dark:bg-neutral-800 animate-pulse"
+            ></div>
+          ))}
+        </div>
+        <div className="flex gap-2 flex-1">
+          {[...new Array(2)].map((i) => (
+            <div
+              key={"second-array" + i}
+              className="h-full w-full rounded-lg  bg-gray-100 dark:bg-neutral-800 animate-pulse"
+            ></div>
+          ))}
+        </div>
       </div>
     </div>
   );

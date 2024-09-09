@@ -3,6 +3,7 @@ import { trpc } from '@/app/_trpc/client';
 import { Loader2 } from 'lucide-react';
 import { FaBox, FaCheckCircle, FaClipboardList, FaTimesCircle } from 'react-icons/fa';
 import JobType from '../_components/JobType';
+import UserList from '../_components/UserList';
 
 function Admin() {
   const { data, isLoading } = trpc.site.getGeneralInfo.useQuery()
@@ -60,8 +61,9 @@ function Admin() {
           </div>
         </div>
       </div>
-      <div className='w-full mt-3 grid grid-cols-2 gap-3'>
+      <div className='w-full mt-3 grid grid-cols-3 gap-3'>
         <JobType/>
+        <UserList/>
       </div>
     </div>
   )
