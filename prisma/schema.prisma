@@ -57,7 +57,6 @@ model Page {
   content String
 }
 
-
 model User {
   id       String @id @default(uuid())
   name     String @unique
@@ -65,3 +64,24 @@ model User {
   password String
   UserRole String
 }
+
+model JobApplication {
+  id        String  @id @default(uuid())
+  firstname String
+  lastname  String
+  email     String
+  address   String
+  phone     String
+  cv        String
+  jobtype   JobType @relation(fields: [jobTypeId], references: [id])
+  jobTypeId String
+}
+
+model JobType {
+  id             String           @id @default(uuid())
+  type           String
+  active         Boolean          @default(true)
+  JobApplication JobApplication[]
+}
+
+

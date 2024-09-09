@@ -1,10 +1,16 @@
 import prisma from "@/lib/db";
-import NextAuth, { NextAuthConfig, User, } from "next-auth";
+import NextAuth, { NextAuthConfig, } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import * as argon2 from "argon2"
 
 
 export const BASE_PATH = "/api/auth";
+
+type User = {
+    name: string,
+    email: string,
+    role: string,
+}
 
 const authOptions: NextAuthConfig = {
     callbacks: {
@@ -14,7 +20,17 @@ const authOptions: NextAuthConfig = {
             // Allows callback URLs on the same origin
             else if (new URL(url).origin === baseUrl) return url
             return baseUrl
-        }
+        },
+        jwt({ token, user }) {
+            if (user) { // User is available during sign-in
+              token.role = user.role
+            }
+            return token
+          },
+          session({ session, token }) {
+            session.user.role = token.role as string
+            return session
+          },
     },
     providers: [
         Credentials({
@@ -35,7 +51,11 @@ const authOptions: NextAuthConfig = {
                 if (!credentials?.password) throw new Error("Password required")
 
                 if (await argon2.verify(siExist.password, credentials.password as string)) {
-                    return siExist
+                    return {
+                        name: siExist.name,
+                        email: siExist.email,
+                        role: siExist.UserRole
+                    } 
                 } else {
                     throw new Error("Wrong Password")
                 }

@@ -13,9 +13,10 @@ import { cn } from "@/lib/utils";
 import { FaProductHunt } from "react-icons/fa";
 import { MdContactPage } from "react-icons/md";
 import { IoDocumentAttach } from "react-icons/io5";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 
 export default function SidebarDemo({ children }: {
@@ -50,7 +51,7 @@ export default function SidebarDemo({ children }: {
         <IoDocumentAttach className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
-    
+
   ];
   const [open, setOpen] = useState(false);
   if (status === "loading") {
@@ -81,13 +82,9 @@ export default function SidebarDemo({ children }: {
             </div>
           </div>
           <div>
-            <SidebarLink
-              link={{
-                label: "Logout",
-                href: "/api/auth/signout",
-                icon: <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-              }}
-            />
+            <Button className=" flex items-center space-x-2" variant="ghost" onClick={()=>signOut()}>
+              <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" /> <span>Logout</span>
+            </Button>
           </div>
         </SidebarBody>
       </Sidebar>
@@ -103,13 +100,13 @@ const Logo = () => {
       href="#"
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
     >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+    <Logo/>
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="font-medium text-black dark:text-white whitespace-pre"
       >
-        Acet Labs
+        Admin
       </motion.span>
     </Link>
   );

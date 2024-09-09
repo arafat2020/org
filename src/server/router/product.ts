@@ -1,9 +1,9 @@
 import { z } from "zod";
-import { procedure, route } from "../trpc";
+import { adminProcedure, procedure, route } from "../trpc";
 import prisma from "@/lib/db";
 
 export const productRouter = route({
-    postProduct: procedure.input(z.object({
+    postProduct: adminProcedure.input(z.object({
         name: z.string().min(1),
         description: z.string().min(1),
         primaryImg: z.string().min(1),
@@ -36,7 +36,7 @@ export const productRouter = route({
         return data
     }),
 
-    inactiveProduct: procedure.input(z.object({
+    inactiveProduct: adminProcedure.input(z.object({
         id: z.string().min(1),
         status: z.boolean()
     })).mutation(async ({ input }) => {
@@ -51,7 +51,7 @@ export const productRouter = route({
         return data
     }),
 
-    getProducts: procedure.input(
+    getProducts: adminProcedure.input(
         z.object({
             page: z.optional(z.number())
         })
@@ -84,7 +84,7 @@ export const productRouter = route({
         return data
     }),
 
-    updateProduct: procedure.input(z.object({
+    updateProduct: adminProcedure.input(z.object({
         id: z.string().min(1),
         name: z.optional(z.string()),
         description: z.optional(z.string()),
@@ -112,7 +112,7 @@ export const productRouter = route({
         return data
     }),
 
-    addShowCaseImage: procedure.input(z.object({
+    addShowCaseImage: adminProcedure.input(z.object({
         id: z.string().min(1),
         img: z.string().min(1)
     })).mutation(async ({ input }) => {
@@ -125,7 +125,7 @@ export const productRouter = route({
         return data
     }),
 
-    removeShowCaseImage: procedure.input(z.object({
+    removeShowCaseImage: adminProcedure.input(z.object({
         id: z.string().min(1),
         productId: z.string().min(1),
     })).mutation(async ({ input }) => {
@@ -138,7 +138,7 @@ export const productRouter = route({
         return data
     }),
 
-    setForHomePage: procedure.input(z.object({
+    setForHomePage: adminProcedure.input(z.object({
         id: z.string().min(1),
         setForHome: z.boolean()
     })).mutation(async ({ input }) => {
