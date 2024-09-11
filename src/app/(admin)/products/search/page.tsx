@@ -10,6 +10,7 @@ import { Loader2 } from 'lucide-react';
 import React, { useState } from 'react'
 import { toast } from 'sonner';
 import ProductCard from '../../_components/ProductCard';
+import useOrigin from '@/hooks/useOrigin';
 
 function Search() {
     type SearchFilter = {
@@ -23,6 +24,7 @@ function Search() {
         subCategoryId: undefined
     })
     const { data, isLoading } = trpc.category.getCategories.useQuery();
+    const origin = useOrigin()
     const {
         mutate,
         isPending,
@@ -116,7 +118,7 @@ function Search() {
                         {
                             product.map(e => {
                                 return (
-                                    <ProductCard key={e.id} {...e} />)
+                                    <ProductCard origin={origin} key={e.id} {...e} />)
                             })
                         }
                     </div>) : (<div className='w-full'>

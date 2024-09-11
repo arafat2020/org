@@ -29,7 +29,8 @@ type ProductCardProp = {
     primaryImg: string;
     subCategoryId: string | null;
     published: boolean;
-    showInHomePage: boolean
+    showInHomePage: boolean,
+    origin: string
 }
 
 
@@ -41,11 +42,14 @@ function ProductCard({
     id,
     SubCategory,
     published,
-    showInHomePage
+    showInHomePage,
+    origin
 }: ProductCardProp) {
     const [active, setActive] = useState<boolean>(published);
     const [setForHom, setSetForHome] = useState<boolean>(showInHomePage);
     const { push } = useRouter();
+
+    const utils = trpc.useUtils()
     const {
         mutate,
     } = trpc.product.inactiveProduct.useMutation({
@@ -54,6 +58,7 @@ function ProductCard({
             toast.success(`Product set to ${data.published ? "Active" : "Inactive"}`)
         },
         onError: (error) => {
+            setActive(state => !state)
             toast.error(
                 <div>
                     <p>Failed To Perform Operation...</p>
@@ -69,7 +74,7 @@ function ProductCard({
         onSuccess: (data) => {
             setSetForHome(data.showInHomePage)
             toast.success(
-                data.showInHomePage? "Product Set For Home page showcase": "Product unset form homepage showcase"
+                data.showInHomePage ? "Product Set For Home page showcase" : "Product unset form homepage showcase"
             )
         },
         onError: (error) => {
@@ -81,6 +86,24 @@ function ProductCard({
             )
         }
     })
+    const {
+        mutate: deleteProduct,
+        isPending
+    } = trpc.product.deleteProduct.useMutation({
+        onSuccess: (data) => {
+            utils.product.getProducts.invalidate()
+            toast.success("Product deleted")
+        },
+        onError: (error) => {
+            toast.error(
+                <div>
+                    <p>Failed To Perform Operation...</p>
+                    <p>{error.message}</p>
+                </div>
+            )
+        }
+    })
+
     return (
         <Card className='row-span-1 col-span-1' key={id}>
             <CardHeader>
@@ -91,7 +114,7 @@ function ProductCard({
                     {description}
                 </CardDescription>
                 <CardContent>
-                    <img src={primaryImg} alt='product' className='w-[80%] h-[300px] rounded-[20px] mx-auto py-3' />
+                    <img src={`${origin}${primaryImg}`} alt='product' className='w-[80%] h-[300px] rounded-[20px] mx-auto py-3' />
                     <p className='italic'>#{SubCategory?.name}</p>
                 </CardContent>
                 <CardFooter className='flex justify-between items-center'>
@@ -105,13 +128,13 @@ function ProductCard({
                             }} defaultChecked={active} />
                         </div>
                         <div className='flex space-x-3 p-1 rounded-full border shadow-inner'>
-                        <Badge variant={setForHom ? "custom" : "default"}>{setForHom ? "Set for home" : "Unset for home"}</Badge><Switch onCheckedChange={e => {
-                            setAsHomeShowCase({
-                                id,
-                                setForHome: e
-                            })
-                        }} defaultChecked={setForHom} />
-                    </div>
+                            <Badge variant={setForHom ? "custom" : "default"}>{setForHom ? "Set for home" : "Unset for home"}</Badge><Switch onCheckedChange={e => {
+                                setAsHomeShowCase({
+                                    id,
+                                    setForHome: e
+                                })
+                            }} defaultChecked={setForHom} />
+                        </div>
                     </div>
                     <div className='flex space-x-2'>
                         <TooltipProvider>
@@ -127,10 +150,13 @@ function ProductCard({
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <MdDeleteOutline role='button' className='w-6 h-6 text-slate-200' />
+                                    <MdDeleteOutline onClick={() => deleteProduct({
+                                        id,
+                                        origin
+                                    })} role='button' className='w-6 h-6 text-slate-200' />
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>Edit</p>
+                                    <p>Delete</p>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>

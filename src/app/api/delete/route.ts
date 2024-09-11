@@ -12,7 +12,7 @@ export async function DELETE(request: NextRequest) {
 
     try {
         // Define the path to the file in the /public/bin/ directory
-        const filePath = join(process.cwd(), 'public', fileName);
+        const filePath = join(process.cwd(), 'public2', fileName);
 
         // Delete the file
         await unlink(filePath);

@@ -78,7 +78,7 @@ function ShowCaseImage({
   return (
     <>
       <h2 className='text-2xl font-sans font-bold py-3'>Showcase Image</h2>
-      <div className='w-full h-[190px] p-3 flex space-x-3'>
+      <div className='w-full h-[230px] p-3 flex space-x-3'>
         <div className='w-[180px] h-full rounded-lg bg-slate-500/60'>
           <div className='text-slate-100 font-sans font-bold bg-slate-600/50 text-center p-2 rounded-lg' {...getRootProps()}>
             <input {...getInputProps()} />
@@ -100,7 +100,7 @@ function ShowCaseImage({
                       img: e.img,
                       imgId: e.id
                     })
-                  }} className='top-3 right-3 text-rose-500 w-6 h-6 absolute' />
+                  }} className='top-3 right-3 text-rose-500 w-7 h-7 p-1 bg-slate-900/50 rounded-full absolute' />
                   <img src={e.img} alt="" className='w-full h-full rounded-lg' />
                 </div>
               )

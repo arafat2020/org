@@ -65,16 +65,16 @@ export function Navigation() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Our Products</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[550px] ">
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-4 md:grid-rows-1 lg:w-[550px] ">
               {data?.map((component) => (
                 <ListItem
                   key={component.id}
                   title={component.name}
-                  className="line-clamp-none"
+                  className="line-clamp-none col-span-1"
                 >
                   {
                     component.subCategory.map(e => {
-                      return <div onClick={()=>push(`/products/${e.id}`)} role="button" className="text-center py-1 border border-x-0 border-t-0 border-b-cyan-900 duration-300 hover:scale-110 dark:hover:text-slate-50 hover:text-slate-950" key={e.id}>
+                      return <div onClick={()=>push(`/products/${e.id}`)} role="button" className=" py-1 border border-x-0 border-t-0 border-b-cyan-900 duration-300 hover:scale-110 dark:hover:text-slate-50 hover:text-slate-950 text-left" key={e.id}>
                         {e.name}
                       </div>
                     })

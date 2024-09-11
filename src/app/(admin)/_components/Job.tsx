@@ -29,8 +29,8 @@ function Job({
                 icon:<Loader2 className='animate-spin'/>
             })
         },
-        onError:()=>{
-            toast.error("Something Went Wrong")
+        onError:(error)=>{
+            toast.error(`Something Went Wrong ${error}`)
         }
     })
     const { mutate:deleteJob } = trpc.job.deleteJobType.useMutation({
@@ -43,8 +43,8 @@ function Job({
                 icon:<Loader2 className='animate-spin'/>
             })
         },
-        onError:()=>{
-            toast.error("Something Went Wrong")
+        onError:(error)=>{
+            toast.error(`Something Went Wrong ${error}`)
         }
     })
     const saveType = useDebounceCallback(e=>{
@@ -56,7 +56,7 @@ function Job({
         })
     }, 400)
     return (
-        <div className='w-full flex items-center space-x-2 bg-cyan-900 p-3'>
+        <div className='w-full flex items-center space-x-2 bg-cyan-900 p-3 overflow-x-hidden'>
             <input onChange={e=>saveType(e.target.value)} disabled={edit} defaultValue={ type } type="text" className={cn("flex-grow outline-none bg-transparent text-xl",
                 !edit && "outline-cyan-700"
             )} />

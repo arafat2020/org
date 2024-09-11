@@ -23,7 +23,7 @@ function Admin() {
             <FaBox size={24} />
           </div>
           <div className="ml-4">
-            <h3 className="text-lg font-semibold">Total Products</h3>
+            <h3 className="text-lg font-semibold line-clamp-1">Total Products</h3>
             <p className="text-slate-50">{data?.[0]}</p>
           </div>
         </div>
@@ -34,7 +34,7 @@ function Admin() {
             <FaCheckCircle size={24} />
           </div>
           <div className="ml-4">
-            <h3 className="text-lg font-semibold">Total Active Products</h3>
+            <h3 className="text-lg font-semibold line-clamp-1">Total Active Products</h3>
             <p className="text-slate-50">{data?.[1]}</p>
           </div>
         </div>
@@ -45,7 +45,7 @@ function Admin() {
             <FaTimesCircle size={24} />
           </div>
           <div className="ml-4">
-            <h3 className="text-lg font-semibold">Total Inactive Products</h3>
+            <h3 className="text-lg font-semibold line-clamp-1">Total Inactive Products</h3>
             <p className="text-slate-50">{data?.[2]}</p>
           </div>
         </div>
@@ -56,7 +56,7 @@ function Admin() {
             <FaClipboardList size={24} />
           </div>
           <div className="ml-4">
-            <h3 className="text-lg font-semibold">Total Job Applications</h3>
+            <h3 className="text-lg font-semibold line-clamp-1">Total Job Applications</h3>
             <p className="text-slate-50">{data?.[3]}</p>
           </div>
         </div>

@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes);
 
     // Define the path to the /public/bin/ directory
-    const dirPath = join(process.cwd(), 'public', 'bin');
+    const dirPath = join(process.cwd(), 'public2', 'bin');
 
     // Ensure the directory exists, creating it if necessary
     await mkdir(dirPath, { recursive: true });

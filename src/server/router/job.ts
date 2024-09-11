@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { adminProcedure, procedure, route } from "../trpc";
 import prisma from "@/lib/db";
+import { TRPCError } from "@trpc/server";
 
 export const jobRouter = route({
     sendJobLetter: procedure.input(z.object({
@@ -21,8 +22,17 @@ export const jobRouter = route({
 
     getJobType: adminProcedure.query(async () => {
         const data = await prisma.jobType.findMany({
-            orderBy:{
-                id:"desc"
+            orderBy: {
+                date: "desc"
+            }
+        });
+        return data
+    }),
+
+    getJobForJobApplication: procedure.query(async () => {
+        const data = await prisma.jobType.findMany({
+            where: {
+                active: true
             }
         });
         return data
@@ -60,19 +70,47 @@ export const jobRouter = route({
         const data = await prisma.jobType.delete({
             where: {
                 id: input.id
-            }
+            },
         })
 
         return data
     }),
 
-    getJobApplications: adminProcedure.input(z.object({
-        page: z.optional(z.number())
-    })).query(async ({ input }) => {
+    getJobApplications: adminProcedure.query(async () => {
         const data = await prisma.jobApplication.findMany({
-            take: 6,
-            skip: 6 * (input.page ? input.page : 0)
-
+            include: {
+                jobtype: true
+            }
         })
+        return data
+    }),
+
+    deleteJob: adminProcedure.input(z.object({
+        id: z.string().min(0),
+        origin: z.string().min(0)
+    })).mutation(async ({ input }) => {
+        const job = await prisma.jobApplication.findUnique({
+            where: {
+                id: input.id
+            }
+        })
+
+        if (!job) throw new TRPCError({ code: "NOT_FOUND" })
+
+        try {
+            await fetch(`${input.origin}/api/delete?fileName=${encodeURIComponent(job.cv)}`, {
+                method: 'DELETE',
+            });
+        } catch (error) {
+            throw new TRPCError({code:"INTERNAL_SERVER_ERROR"})
+        }
+
+        const data = prisma.jobApplication.delete({
+            where:{
+                id: input.id
+            }
+        })
+
+        return data
     })
 })

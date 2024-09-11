@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { adminProcedure, procedure, route } from "../trpc";
 import prisma from "@/lib/db";
+import { TRPCError } from "@trpc/server";
 
 export const productRouter = route({
     postProduct: adminProcedure.input(z.object({
@@ -32,6 +33,48 @@ export const productRouter = route({
                     }
                 }
             }
+        })
+        return data
+    }),
+
+    deleteProduct: adminProcedure.input(z.object({
+        id: z.string(),
+        origin: z.string().min(1)
+    })).mutation(async ({ input }) => {
+        const product = await prisma.product.findUnique({
+            where: {
+                id: input.id
+            },
+            include: {
+                showcaseImg: true
+            }
+        })
+        if (!product) return
+        try {
+            await fetch(`${input.origin}/api/delete?fileName=${encodeURIComponent(product.primaryImg)}`, {
+                method: 'DELETE',
+            });
+            await product.showcaseImg.map( async e => {
+                await fetch(`${input.origin}/api/delete?fileName=${encodeURIComponent(e.img)}`, {
+                    method: 'DELETE',
+                });
+            })
+        } catch (error) {
+            console.log(error);
+            
+            throw new TRPCError({ code:"INTERNAL_SERVER_ERROR" })
+        }
+        const data = await prisma.$transaction(async ctx => {
+            await ctx.product.delete({
+                where: {
+                    id: input.id
+                }
+            })
+            await ctx.showcaseImage.deleteMany({
+                where: {
+                    productId: input.id
+                }
+            })
         })
         return data
     }),
@@ -187,7 +230,7 @@ export const productRouter = route({
             where: {
                 id: input.productId
             },
-            include:{
+            include: {
                 showcaseImg: true
             }
         })
@@ -196,7 +239,7 @@ export const productRouter = route({
             where: {
                 subCategoryId: product?.subCategoryId
             },
-            include:{
+            include: {
                 SubCategory: true
             }
         })
@@ -214,10 +257,10 @@ export const productRouter = route({
         const products = await prisma.product.findMany({
             where: {
                 subCategoryId: input.subcategoryId,
-                name:{
+                name: {
                     contains: input.searchTerm
                 },
-                published:true
+                published: true
             },
             include: {
                 SubCategory: {

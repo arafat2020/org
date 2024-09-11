@@ -10,9 +10,11 @@ import { trpc } from '@/app/_trpc/client';
 import { Loader2 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import useOrigin from '@/hooks/useOrigin';
 
 
  function Product() {
+    const origin = useOrigin()
     const query = useSearchParams();
     const { push } = useRouter();
     const currentPage = query.get("page") ? parseInt(query.get("page")!) : 1;
@@ -51,7 +53,7 @@ import { useRouter } from 'next/navigation';
                                 {
                                     data.data.map(e => {
                                         return (
-                                            <ProductCard key={e.id} {...e} />
+                                            <ProductCard origin={origin} key={e.id} {...e} />
                                         );
                                     })
                                 }
