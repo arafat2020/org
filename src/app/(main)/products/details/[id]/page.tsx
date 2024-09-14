@@ -5,10 +5,12 @@ import { trpc } from '@/app/_trpc/client'
 import Marquee from '@/components/magicui/marquee';
 import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 function Details({ params }: { params: { id: string } }) {
     const [img, setImg] = useState<string | undefined>("")
+    const { push } = useRouter()
     const {
         mutate,
         data,
@@ -58,7 +60,7 @@ function Details({ params }: { params: { id: string } }) {
             <Marquee pauseOnHover className='[--duration:20s]'>
                 {
                     data?.simileProduct.map(e=>(
-                        <figure key={e.id}
+                        <figure onClick={()=>push(`/products/details/${e.id}`)} key={e.id}
                         className={cn(
                           "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
                           // light styles

@@ -40,7 +40,7 @@ function Edit({
                 <EditImage img={data.primaryImg} id={data.id} edit={editable} />
                 <EditDoc id={data.id} title={data.name} description={data.description} edit={editable} />
             </div>
-            <ShowCaseImage id={data.id} img={data.showcaseImg}/>
+            <ShowCaseImage edit={!editable} id={data.id} img={data.showcaseImg}/>
         </div>
     )
 }

@@ -78,9 +78,9 @@ function Documents() {
             width: 70,
             filterable: false,
             renderCell:(param)=>
-                <button className='py-2'>
+                <button className='pt-2'>
                     <a href={param.row.cv}  download={param.row.cv}>
-                    <BsFilePdf className='w-7 h-7  text-rose-700'/>
+                    <BsFilePdf className='w-7 h-7  text-rose-500'/>
                 </a>
                 </button>
             
@@ -90,7 +90,7 @@ function Documents() {
             headerName: "Delete",
             width: 100,
             filterable: false,
-            renderCell:(param)=> <button className='py-2' disabled={isPending} onClick={()=>mutate({
+            renderCell:(param)=> <button className='pt-2' disabled={isPending} onClick={()=>mutate({
                 id:param.row.id,
                 origin
             })}><BsTrash className='w-7 h-7 text-rose-700'/></button>
@@ -111,6 +111,10 @@ function Documents() {
                             pageSize: 10,
                         },
                     },
+                }}
+                onStateChange={e=>{
+                    console.log(e);
+                    
                 }}
                 pageSizeOptions={[5, 10, 20]}
                 checkboxSelection

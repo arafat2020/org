@@ -4,7 +4,7 @@ import { SparklesPreview } from '../../_components/SparkleHeading'
 
 function page() {
   return (
-    <div className='w-full h-auto'>
+    <div className='w-full min-h-full h-auto'>
         <SparklesPreview title='Join Our Team'/>
         <JobForm/>
     </div>

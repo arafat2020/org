@@ -44,12 +44,41 @@ export const userRouter = route({
         UserRole: z.string().min(1),
     })).mutation(async ({ input }) => {
         const data = prisma.user.create({
-            data:{
+            data: {
                 name: input.username,
                 email: input.email,
                 password: await argon2.hash(input.password),
                 UserRole: input.UserRole
             }
+        })
+
+        return data
+    }),
+
+    editUser: adminProcedure.input(z.object({
+        id: z.string(),
+        data: z.object({
+            name: z.optional(z.string().min(1)),
+            email: z.optional(z.string().min(1).email()),
+            password: z.optional(z.string().min(4)),
+            UserRole: z.optional(z.string().min(1)),
+        })
+    })).mutation(async ({ input }) => {
+        const data = prisma.user.update({
+            where: {
+                id: input.id
+            },
+            data: input.data
+        })
+
+        return data
+    }),
+
+    deleteUser: adminProcedure.input(z.object({
+        id: z.string()
+    })).mutation(async ({input}) => {
+        const data = await prisma.user.delete({
+            where:input
         })
 
         return data

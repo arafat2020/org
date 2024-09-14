@@ -20,8 +20,13 @@ export async function POST(request: NextRequest) {
     // Ensure the directory exists, creating it if necessary
     await mkdir(dirPath, { recursive: true });
 
+    // Sanitize the file name: replace spaces and remove special characters
+    const sanitizedFileName = file.name
+        .replace(/\s+/g, '-') // Replace spaces with hyphens
+        .replace(/[^a-zA-Z0-9.-]/g, ''); // Remove non-alphanumeric characters except dots and hyphens
+
     // Generate a unique file name and path
-    const uniqueFileName = `${uuidv4()}-${file.name}`;
+    const uniqueFileName = `${uuidv4()}-${sanitizedFileName}`;
     const filePath = join(dirPath, uniqueFileName);
 
     // Write the file to the /public/bin/ directory

@@ -13,12 +13,14 @@ app.prepare().then(() => {
     createServer((req, res) => {
         const parsedUrl = parse(req.url, true);
         const { pathname } = parsedUrl;
+        console.log(pathname);
         // Handle requests to /bin/*
         if (pathname.startsWith('/bin/')) {
             const filePath = path.join(binDir, pathname.replace('/bin/', ''));
             // Serve any files from /bin/ directory
-            fs.readFile(filePath, (err, data) => {
-                if (err) {
+            fs.stat(filePath, (err, stats) => {
+                console.log(err);
+                if (err || !stats.isFile()) {
                     res.statusCode = 404;
                     res.end('File not found');
                     return;
@@ -42,7 +44,14 @@ app.prepare().then(() => {
                         break;
                 }
                 res.setHeader('Content-Type', contentType);
-                res.end(data);
+                // Use a stream for large files like PDFs
+                const stream = fs.createReadStream(filePath);
+                stream.pipe(res);
+                stream.on('error', (err) => {
+                    console.log(err);
+                    res.statusCode = 500;
+                    res.end('Server error');
+                });
             });
         }
         else {

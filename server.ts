@@ -12,17 +12,20 @@ const handle = app.getRequestHandler();
 const binDir = path.join(process.cwd(), 'public2/bin');
 
 app.prepare().then(() => {
-  createServer((req:any, res:any) => {
+  createServer((req: any, res: any) => {
     const parsedUrl = parse(req.url, true);
     const { pathname } = parsedUrl;
+    console.log(pathname);
 
     // Handle requests to /bin/*
     if (pathname.startsWith('/bin/')) {
       const filePath = path.join(binDir, pathname.replace('/bin/', ''));
 
       // Serve any files from /bin/ directory
-      fs.readFile(filePath, (err:any, data:any) => {
-        if (err) {
+      fs.stat(filePath, (err: any, stats: any) => {
+        console.log(err);
+
+        if (err || !stats.isFile()) {
           res.statusCode = 404;
           res.end('File not found');
           return;
@@ -49,7 +52,16 @@ app.prepare().then(() => {
         }
 
         res.setHeader('Content-Type', contentType);
-        res.end(data);
+
+        // Use a stream for large files like PDFs
+        const stream = fs.createReadStream(filePath);
+        stream.pipe(res);
+
+        stream.on('error', (err: any) => {
+          console.log(err);
+          res.statusCode = 500;
+          res.end('Server error');
+        });
       });
     } else {
       // Handle all other Next.js requests

@@ -14,6 +14,7 @@ import { trpc } from "@/app/_trpc/client";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { upload } from "@/lib/upload";
+import { z } from "zod";
 
 export function JobForm() {
   type JobApplication = {
@@ -34,6 +35,16 @@ export function JobForm() {
     cv: string;
     jobTypeId: string;
   };
+  const JobApplicationSchema = z.object({
+    firstname: z.string().min(1, "First name is required"),
+    lastname: z.string().min(1, "Last name is required"),
+    email: z.string().email("Invalid email address"),
+    address: z.string().min(1, "Address is required"),
+    phone: z.string().min(1, "Phone number is required"),
+    cv: z.union([(z.object({})), z.string()]), // Validate either an array of File objects or a string
+    jobTypeId: z.string().min(1, "Job Type is required"),
+  });
+
 
   const { register, handleSubmit } = useForm<JobApplication>();
   const { data, isLoading } = trpc.job.getJobForJobApplication.useQuery();
@@ -48,7 +59,14 @@ export function JobForm() {
     }
   })
   const onSubmit: SubmitHandler<JobApplication> = async (data) => {
-    console.log(data.cv);
+    console.log(data);
+    
+    const validation = JobApplicationSchema.safeParse(data);
+    console.log(validation.error?.errors);
+    
+    if (!validation.success) return toast.error(validation.error.errors.map(e=>{
+      return <p className="text-rose-500 font-sans font-semibold" key={e.message}>{e.message}</p>
+    }))
     if (typeof (data.cv) !== "string" && data.cv[0].type === "application/pdf") {
       const url = await upload(data.cv[0])
       console.log(url)
