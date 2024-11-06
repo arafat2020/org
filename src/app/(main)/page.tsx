@@ -5,14 +5,16 @@ import Counter from '../_components/Counter'
 import MarqueeTwo from '../_components/MarqueeTwo'
 import Products from '../_components/Products'
 import { MarqueeReview } from '../_components/Marquee'
+import { serverClient } from '../_trpc/serverClient'
 
-function Home() {
+async function Home() {
+  const productForHome = await serverClient.product.getProductForHomepage()
   return (
     <div className='w-full overflow-x-hidden overflow-y-scroll scrollbar-hide'>
       <HeroParallax products={products} />
       <Counter/>
       <MarqueeTwo/>
-      <Products/>
+      <Products data={productForHome}/>
       <MarqueeReview/>
     </div>
   )

@@ -40,20 +40,20 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section className="py-16 px-4 bg-slate-950">
+    <section className="py-16 px-4 dark:bg-slate-950">
       <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-8 text-white">Our Services</h2>
-        <p className="mb-12 text-gray-300">
+        <h2 className="text-3xl font-bold mb-8 dark:text-white">Our Services</h2>
+        <p className="mb-12 dark:text-gray-300">
           We provide a range of services to ensure a smooth and efficient buying process, from vendor selection to shipping coordination.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {services.map((service, index) => (
-            <div key={index} className="p-6 bg-slate-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+            <div key={index} className="p-6 bg-slate-200 dark:bg-slate-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
               <div className="flex justify-center mb-4">
                 {service.icon}
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-white">{service.title}</h3>
-              <p className="text-gray-300">{service.description}</p>
+              <h3 className="text-xl font-semibold mb-2 dark:text-white">{service.title}</h3>
+              <p className="dark:text-gray-300">{service.description}</p>
             </div>
           ))}
         </div>

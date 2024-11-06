@@ -102,7 +102,7 @@ function Sidebar() {
                 <Link href={'/contact'} onClick={close} className='w-2/5 flex items-center space-x-3 mb-2 border border-t-0 border-x-0 border-b-cyan-600 pb-2'>
                     <span>Contact Us</span>
                 </Link>
-                <Link href={'/our-service'} onClick={close} className='w-2/5 flex items-center space-x-3 mb-2 border border-t-0 border-x-0 border-b-cyan-600 pb-2'>
+                <Link href={'/services'} onClick={close} className='w-2/5 flex items-center space-x-3 mb-2 border border-t-0 border-x-0 border-b-cyan-600 pb-2'>
                     <span>Our Service</span>
                 </Link>
                 <FooterIcon />

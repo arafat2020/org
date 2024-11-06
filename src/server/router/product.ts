@@ -54,15 +54,15 @@ export const productRouter = route({
             await fetch(`${input.origin}/api/delete?fileName=${encodeURIComponent(product.primaryImg)}`, {
                 method: 'DELETE',
             });
-            await product.showcaseImg.map( async e => {
+            await product.showcaseImg.map(async e => {
                 await fetch(`${input.origin}/api/delete?fileName=${encodeURIComponent(e.img)}`, {
                     method: 'DELETE',
                 });
             })
         } catch (error) {
             console.log(error);
-            
-            throw new TRPCError({ code:"INTERNAL_SERVER_ERROR" })
+
+            throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" })
         }
         const data = await prisma.$transaction(async ctx => {
             await ctx.product.delete({
@@ -112,7 +112,15 @@ export const productRouter = route({
             count
         }
     }),
-
+    getProductForHomepage: procedure.query(async () => {
+        const data = await prisma.product.findMany({
+            where: {
+                showInHomePage: true
+            }
+        })
+        if (data.length < 7) return null
+        return data
+    }),
     getProductById: procedure.input(z.object({
         id: z.string().min(1)
     })).query(async ({ input }) => {

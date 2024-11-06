@@ -22,7 +22,7 @@ export function Navigation() {
   const { data, isLoading } = trpc.category.getCategories.useQuery();
   const { push } = useRouter()
   if (isLoading) {
-    return <Loader2 className="w-6 h-6 text-slate-200 animate-spin" />
+    return <Loader2 className="w-6 h-6 dark:text-slate-200 animate-spin" />
   }
 
   return (
@@ -37,7 +37,7 @@ export function Navigation() {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b dark:from-muted/50 dark:to-muted from-slate-500 to-amber-100 p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
                     <Logo />
