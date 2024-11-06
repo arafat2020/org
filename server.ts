@@ -15,7 +15,8 @@ app.prepare().then(() => {
   createServer((req: any, res: any) => {
     const parsedUrl = parse(req.url, true);
     const { pathname } = parsedUrl;
-    console.log(pathname);
+    // console.log(pathname);
+    
 
     // Handle requests to /bin/*
     if (pathname.startsWith('/bin/')) {
@@ -23,7 +24,7 @@ app.prepare().then(() => {
 
       // Serve any files from /bin/ directory
       fs.stat(filePath, (err: any, stats: any) => {
-        console.log(err);
+        // console.log(err);
 
         if (err || !stats.isFile()) {
           res.statusCode = 404;
@@ -58,7 +59,7 @@ app.prepare().then(() => {
         stream.pipe(res);
 
         stream.on('error', (err: any) => {
-          console.log(err);
+          // console.log(err);
           res.statusCode = 500;
           res.end('Server error');
         });

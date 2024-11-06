@@ -13,13 +13,13 @@ app.prepare().then(() => {
     createServer((req, res) => {
         const parsedUrl = parse(req.url, true);
         const { pathname } = parsedUrl;
-        console.log(pathname);
+        // console.log(pathname);
         // Handle requests to /bin/*
         if (pathname.startsWith('/bin/')) {
             const filePath = path.join(binDir, pathname.replace('/bin/', ''));
             // Serve any files from /bin/ directory
             fs.stat(filePath, (err, stats) => {
-                console.log(err);
+                // console.log(err);
                 if (err || !stats.isFile()) {
                     res.statusCode = 404;
                     res.end('File not found');
@@ -48,7 +48,7 @@ app.prepare().then(() => {
                 const stream = fs.createReadStream(filePath);
                 stream.pipe(res);
                 stream.on('error', (err) => {
-                    console.log(err);
+                    // console.log(err);
                     res.statusCode = 500;
                     res.end('Server error');
                 });
