@@ -2,39 +2,39 @@ import { FaStore, FaFlask, FaShieldAlt, FaClipboardList, FaShippingFast, FaDolla
 
 const services = [
   {
-    title: 'Selection Of Vendors',
+    title: 'Vendor Selection & Assessment',
     icon: <FaStore className="text-blue-400 text-4xl" />,
-    description: 'We assess factories in terms of product range, quality, production capacity, facilities, financial capability, technology orientation, manpower, working conditions, managerial efficiency, and vendor quality. Based on these assessments, we share our findings with our principals to select approved vendors.',
+    description: 'We carefully assess factories based on product quality, production capacity, compliance, financial stability, and workforce conditions. Our findings help clients choose from a list of thoroughly vetted vendors that meet their production needs and standards.',
   },
   {
-    title: 'Sampling',
+    title: 'Sampling & Prototyping',
     icon: <FaFlask className="text-green-400 text-4xl" />,
-    description: 'Samples are provided to match buyers’ requirements in colors, fabrics, and styles. We manufacture samples for marketing and buyer evaluation, aiding in competitive positioning.',
+    description: 'Our team develops samples that align with buyers’ requirements in terms of design, color, fabric, and style. These samples are used for buyer evaluation and competitive positioning in the market.',
   },
   {
-    title: 'Total Quality Management',
+    title: 'Comprehensive Quality Management',
     icon: <FaShieldAlt className="text-red-400 text-4xl" />,
-    description: 'From sampling to shipment, quality management is ensured through multi-step inspections, using ERP systems to identify issues and take corrective measures for timely delivery.',
+    description: 'From sample creation to final shipment, we implement strict quality control measures, ensuring each step meets international standards. ERP systems help us monitor and address quality concerns promptly.',
   },
   {
-    title: 'Status Reporting',
+    title: 'Production Status Reporting',
     icon: <FaClipboardList className="text-yellow-400 text-4xl" />,
-    description: 'Status reports provide ongoing updates on production progress, ensuring shipments match the buyer’s quality expectations and are delivered on time.',
+    description: 'We keep our clients updated on production progress through regular status reports, allowing them to monitor quality, timelines, and any necessary adjustments.',
   },
   {
-    title: 'Shipping Coordination',
+    title: 'Shipping & Logistics Coordination',
     icon: <FaShippingFast className="text-purple-400 text-4xl" />,
-    description: 'Documents are prepared and checked as per buyer instructions before shipment to avoid discrepancies.',
+    description: 'Our team handles all shipping documentation and logistics, ensuring compliance with buyer instructions to avoid any discrepancies during export.',
   },
   {
-    title: 'Price',
+    title: 'Competitive Pricing',
     icon: <FaDollarSign className="text-teal-400 text-4xl" />,
-    description: 'We compare prices from various suppliers, using our experience to obtain the most realistic prices.',
+    description: 'We negotiate with suppliers to secure competitive pricing without compromising on quality, leveraging our experience to provide cost-effective solutions.',
   },
   {
-    title: 'Other Services',
+    title: 'Additional Support Services',
     icon: <FaConciergeBell className="text-pink-400 text-4xl" />,
-    description: 'We provide market insights, assist with travel arrangements, and support buyers with local coordination for a comfortable experience.',
+    description: 'We offer market insights, travel coordination, and local support to ensure a smooth and comfortable experience for buyers visiting our production facilities.',
   },
 ];
 
@@ -44,7 +44,7 @@ const ServicesSection = () => {
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-3xl font-bold mb-8 dark:text-white">Our Services</h2>
         <p className="mb-12 dark:text-gray-300">
-          We provide a range of services to ensure a smooth and efficient buying process, from vendor selection to shipping coordination.
+          Our range of services is tailored to provide a seamless experience in clothing production and export, from vendor selection to logistics coordination.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {services.map((service, index) => (
