@@ -8,7 +8,16 @@ import { cn } from "@/lib/utils"
 const fontSans = Inter({ subsets: ['latin'], variable: "--font-sans" })
 import { Toaster } from 'sonner'
 import AuthProvider from "./_components/AuthProvidor"
-
+export const metadata: Metadata = {
+    title: "Anha Trade international",
+    description: "Best quality product with full client satisfaction.",
+    icons: [
+      {
+        url: "/favicon.svg",
+        href: "/favicon.svg"
+      }
+    ]
+  };
 
 
 function RootLayout({ children }: { children: ReactNode }) {

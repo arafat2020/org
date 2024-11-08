@@ -38,7 +38,7 @@ const KeyContacts = () => {
   ];
 
   return (
-    <div className="w-full h-full bg-white text-gray-900 dark:bg-slate-950 dark:text-gray-100">
+    <div className="w-full min-h-full bg-white text-gray-900 dark:bg-slate-950 dark:text-gray-100">
       <header className="p-4 flex justify-between items-center border-b">
         <h1 className="text-2xl font-bold">Key Contacts</h1>
       </header>
