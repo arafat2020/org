@@ -16,21 +16,23 @@ const authOptions: NextAuthConfig = {
     callbacks: {
         async redirect({ url, baseUrl }) {
             // Allows relative callback URLs
-            if (url.startsWith("/")) return `${baseUrl}${url}`
+            if (url.startsWith("/")) return `${baseUrl}${url}`;
             // Allows callback URLs on the same origin
-            else if (new URL(url).origin === baseUrl) return url
-            return baseUrl
+            else if (new URL(url).origin === baseUrl) return url;
+            return baseUrl;
         },
-        jwt({ token, user }) {
-            if (user) { // User is available during sign-in
-              token.role = user.role
+        async jwt({ token, user }) {
+            if (user) {
+                token.role = user.role;
             }
-            return token
-          },
-          session({ session, token }) {
-            session.user.role = token.role as string
-            return session
-          },
+            return token;
+        },
+        async session({ session, token }) {
+            if (session.user) {
+                session.user.role = token.role as string;
+            }
+            return session;
+        },
     },
     providers: [
         Credentials({
@@ -40,26 +42,27 @@ const authOptions: NextAuthConfig = {
                 password: { label: "Password", type: "password", placeholder: "Your Password" },
             },
             async authorize(credentials): Promise<User | null> {
-                const siExist = await prisma.user.findUnique({
+                if (!credentials) throw new Error("Credentials are required");
+
+                const user = await prisma.user.findUnique({
                     where: {
-                        name: credentials?.username as string
-                    }
-                })
+                        name: credentials.username as string,
+                    },
+                });
 
-                if (!siExist) throw new Error("User no exist")
+                if (!user) throw new Error("User does not exist");
+                if (!credentials.password) throw new Error("Password required");
 
-                if (!credentials?.password) throw new Error("Password required")
-
-                if (await argon2.verify(siExist.password, credentials.password as string)) {
+                const isPasswordValid = await argon2.verify(user.password, credentials.password as string);
+                if (isPasswordValid) {
                     return {
-                        name: siExist.name,
-                        email: siExist.email,
-                        role: siExist.UserRole
-                    } 
+                        name: user.name,
+                        email: user.email,
+                        role: user.UserRole,
+                    };
                 } else {
-                    throw new Error("Wrong Password")
+                    throw new Error("Wrong password");
                 }
-
             },
         }),
     ],
