@@ -85,3 +85,23 @@ model JobType {
   JobApplication JobApplication[]
   date      DateTime @default(now())
 }
+model BannerPic {
+  id             String           @id @default(uuid())
+  pic String
+  name String?
+}
+
+model Review {
+  id             String           @id @default(uuid())
+  pic String
+  text String
+  name String
+  link String?
+}
+
+model Company {
+  id             String           @id @default(uuid())
+  pic String
+  name String
+  link String?
+}

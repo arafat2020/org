@@ -6,6 +6,9 @@ import MarqueeTwo from '../_components/MarqueeTwo'
 import Products from '../_components/Products'
 import { MarqueeReview } from '../_components/Marquee'
 import { serverClient } from '../_trpc/serverClient'
+import Overview from '../_components/Overview'
+import WhyUs from '../_components/whay-Us'
+import Factory from '../_components/Factory'
 
 async function Home() {
   const productForHome = await serverClient.product.getProductForHomepage()
@@ -14,7 +17,10 @@ async function Home() {
       <HeroParallax products={products} />
       <Counter/>
       <MarqueeTwo/>
+      <Overview/>
+      <WhyUs/>
       <Products data={productForHome}/>
+      <Factory/>
       <MarqueeReview/>
     </div>
   )
