@@ -71,6 +71,14 @@ function Add() {
         )
     }
     const handleSubmit = async (e: MouseEvent) => {
+        if (
+            !product.catagoryId
+            || !product.subCategoryId
+            || !product.name
+            || !product.description) {
+            toast.error("All field is required")
+            return
+        }
         e.preventDefault()
         const img = await upload(file);
         if (!img) return
