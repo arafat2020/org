@@ -245,13 +245,7 @@ export const productRouter = route({
 
         const simileProduct = await prisma.product.findMany({
             where: {
-                name: {
-                    contains: product?.name,
-
-                },
-                NOT: {
-                    id: product?.id
-                }
+                subCategoryId: product?.subCategoryId
             },
             include: {
                 SubCategory: true
