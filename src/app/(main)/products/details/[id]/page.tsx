@@ -70,7 +70,7 @@ function Details({ params }: { params: { id: string } }) {
                         )}
                       >
                         <div className="flex flex-row items-center gap-2">
-                          <img className="rounded-lg w-[150px] h-[220px]" alt="" src={e.primaryImg} />
+                          <img className="rounded-lg w-[80px] h-[120px]" alt="" src={e.primaryImg} />
                           <div className="flex flex-col">
                             <figcaption className="text-sm font-medium dark:text-white line-clamp-1">
                               {e.name}

@@ -71,7 +71,7 @@ function User({
         }
     }), 400)
     return (
-        <div className='w-full flex items-center space-x-2 bg-cyan-900 p-2'>
+        <div className='w-full flex items-center space-x-2 bg-cyan-900 p-2 rounded-md'>
             <input onChange={e => editName(e.target.value)} disabled={!edit} defaultValue={name} type="text" className={cn("flex-grow outline-none bg-transparent text-xl line-clamp-1 p-1",
                 edit && "outline-cyan-700"
             )} />

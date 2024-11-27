@@ -3,6 +3,7 @@ import EditDoc from '@/app/(admin)/_components/EditDoc'
 import EditImage from '@/app/(admin)/_components/EditImage'
 import ShowCaseImage from '@/app/(admin)/_components/ShowCaseImage'
 import { SparklesPreview } from '@/app/_components/SparkleHeading'
+import Tag from '@/app/_components/Tag'
 import { trpc } from '@/app/_trpc/client'
 import { Badge } from '@/components/ui/badge'
 import { Switch } from '@/components/ui/switch'
@@ -27,6 +28,8 @@ function Edit({
     if (!data) {
         return notFound()
     }
+    console.log(data);
+    
     return (
         <div className='w-full h-full relative'>
             <div className='flex p-1 rounded-full absolute top-0 right-0 space-x-3'>
@@ -38,9 +41,9 @@ function Edit({
             <h1 className='text-3xl font-sans font-bold py-3'>Edit and Save Product</h1>
             <div className='w-full flex space-x-3'>
                 <EditImage img={data.primaryImg} id={data.id} edit={editable} />
-                <EditDoc id={data.id} title={data.name} description={data.description} edit={editable} />
+                <EditDoc tag={data.Tag} id={data.id} title={data.name} description={data.description} edit={editable} />
             </div>
-            <ShowCaseImage edit={!editable} id={data.id} img={data.showcaseImg}/>
+            <ShowCaseImage edit={!editable} id={data.id} img={data.showcaseImg} />
         </div>
     )
 }

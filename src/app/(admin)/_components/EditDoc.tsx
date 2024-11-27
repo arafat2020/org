@@ -1,6 +1,7 @@
 
 "use client"
 
+import Tag from '@/app/_components/Tag'
 import { trpc } from '@/app/_trpc/client'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,14 +16,16 @@ interface EditDocProp {
   id: string,
   title: string,
   description: string
-  edit: boolean
+  edit: boolean,
+  tag: { id: string; name: string; Product: { id: string; }[] } | null
 }
 
 function EditDoc({
   title,
   description,
   edit,
-  id
+  id,
+  tag
 }: EditDocProp) {
   const {
     mutate
@@ -72,6 +75,7 @@ function EditDoc({
         </Label>
         <Textarea disabled={edit} defaultValue={description} onChange={e=>editDescription(e.target.value)} />
       </div>
+      <Tag id={id} edit={edit} tag={tag} />
     </div>
   )
 }

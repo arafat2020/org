@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -17,9 +17,15 @@ function SignIn() {
 
     const { register, handleSubmit } = useForm<SignInInput>();
     const router = useRouter();
-    
-    // Get the callbackUrl from the query string, or set a default value
-    const callbackUrl = new URLSearchParams(window.location.search).get('callbackUrl') || "/admin";
+    const [callbackUrl, setCallbackUrl] = useState("/admin");
+
+    useEffect(() => {
+        // Only runs on the client
+        if (typeof window !== "undefined") {
+            const urlCallback = new URLSearchParams(window.location.search).get('callbackUrl');
+            setCallbackUrl(urlCallback || "/admin");
+        }
+    }, []);
 
     const onSubmit: SubmitHandler<SignInInput> = async (data) => {
         const result = await signIn("credentials", {

@@ -115,7 +115,8 @@ export const productRouter = route({
     getProductForHomepage: procedure.query(async () => {
         const data = await prisma.product.findMany({
             where: {
-                showInHomePage: true
+                showInHomePage: true,
+                published: true
             }
         })
         if (data.length < 7) return null
@@ -129,7 +130,16 @@ export const productRouter = route({
                 id: input.id
             },
             include: {
-                showcaseImg: true
+                showcaseImg: true,
+                Tag: {
+                    include:{
+                        Product: {
+                            select: {
+                                id: true
+                            }
+                        }
+                    }
+                }
             }
         })
         return data
@@ -245,11 +255,14 @@ export const productRouter = route({
 
         const simileProduct = await prisma.product.findMany({
             where: {
-                subCategoryId: product?.subCategoryId
+                tagId: product?.tagId,
+                NOT:{
+                    id: product?.id
+                }
             },
             include: {
                 SubCategory: true
-            }
+            },
         })
 
         return {
