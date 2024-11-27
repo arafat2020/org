@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon --turbo",
-    "build": "next build && tsc --project tsconfig.server.json",
-    "start": "cross-env NODE_ENV=production node dist/server.js",
+    "dev": "node init && nodemon --turbo",
+    "build": "node init && next build && tsc --project tsconfig.server.json",
+    "start": "node init && cross-env NODE_ENV=production node dist/server.js",
     "postinstall": "npx prisma generate",
     "lint": "next lint",
     "boast": "npm run build && npm start"
@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.13.0",
     "@mui/x-data-grid": "^7.16.0",
     "@prisma/client": "^5.19.0",
+    "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-collapsible": "^1.1.0",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-dropdown-menu": "^2.1.1",

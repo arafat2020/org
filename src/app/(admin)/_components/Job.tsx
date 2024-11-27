@@ -56,7 +56,7 @@ function Job({
         })
     }, 400)
     return (
-        <div className='w-full flex items-center space-x-2 bg-cyan-900 p-3 overflow-x-hidden'>
+        <div className='w-full flex items-center space-x-2 bg-cyan-900 p-3 overflow-x-hidden rounded-md'>
             <input onChange={e=>saveType(e.target.value)} disabled={edit} defaultValue={ type } type="text" className={cn("flex-grow outline-none bg-transparent text-xl",
                 !edit && "outline-cyan-700"
             )} />
