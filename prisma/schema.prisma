@@ -14,7 +14,7 @@ datasource db {
 model Category {
   id          String        @id @default(uuid())
   name        String
-  date DateTime @default(now())
+  date        DateTime      @default(now())
   subCategory SubCategory[]
 }
 
@@ -39,8 +39,16 @@ model Product {
   subCategoryId  String?
   published      Boolean         @default(true)
   showInHomePage Boolean         @default(false)
+  Tag            Tag?            @relation(fields: [tagId], references: [id])
+  tagId          String?
 
-  @@index([subCategoryId])
+  @@index([subCategoryId, tagId])
+}
+
+model Tag {
+  id      String    @id @default(uuid())
+  name    String
+  Product Product[]
 }
 
 model ShowcaseImage {
@@ -83,25 +91,26 @@ model JobType {
   type           String
   active         Boolean          @default(true)
   JobApplication JobApplication[]
-  date      DateTime @default(now())
+  date           DateTime         @default(now())
 }
+
 model BannerPic {
-  id             String           @id @default(uuid())
-  pic String
+  id   String  @id @default(uuid())
+  pic  String
   name String?
 }
 
 model Review {
-  id             String           @id @default(uuid())
-  pic String
+  id   String  @id @default(uuid())
+  pic  String
   text String
   name String
   link String?
 }
 
 model Company {
-  id             String           @id @default(uuid())
-  pic String
+  id   String  @id @default(uuid())
+  pic  String
   name String
   link String?
 }
