@@ -13,8 +13,8 @@ import { cn } from '@/lib/utils'
 function ShowCaseImage({
   img,
   id,
-  edit 
-}: { img: ShowcaseImage[], id: string, edit:boolean }) {
+  edit
+}: { img: ShowcaseImage[], id: string, edit: boolean }) {
   const utils = trpc.useUtils()
   const { mutate } = trpc.product.addShowCaseImage.useMutation({
     onSuccess: () => {
@@ -81,25 +81,25 @@ function ShowCaseImage({
     <>
       <h2 className='text-2xl font-sans font-bold py-3'>Showcase Image</h2>
       <div className='w-full h-[270px] p-3 flex space-x-3'>
-        <div className='w-[200px] h-full rounded-lg bg-slate-500/60 flex justify-around items-center'>
-          <div className={cn("text-slate-100 font-sans font-bold bg-slate-600/50 text-center p-2 rounded-lg trasi duration-300",
-          !edit ? "scale-0" : "scale-100"
-          )} {...getRootProps()}>
-            <input disabled={!edit} {...getInputProps()} />
-
-            <FaCloudUploadAlt className='w-12 h-12 mx-auto text-sky-700 p-3 border border-sky-800' />
-            {
-              isDragActive ?
-                <p>Drop the files here ...</p> :
-                <p>Drag or drop some files here, or click to select files</p>
-            }
-          </div>
-        </div>
         <div className='flex-grow  flex flex-wrap space-x-3'>
+          <div className='w-[180px] h-[230px] rounded-lg bg-slate-500/60 flex justify-around items-center'>
+            <div className={cn("text-slate-100 font-sans font-bold bg-slate-600/50 text-center p-2 rounded-lg trasi duration-300",
+              !edit ? "scale-0" : "scale-100"
+            )} {...getRootProps()}>
+              <input disabled={!edit} {...getInputProps()} />
+
+              <FaCloudUploadAlt className='w-12 h-12 mx-auto text-sky-700 p-3 border border-sky-800' />
+              {
+                isDragActive ?
+                  <p>Drop the files here ...</p> :
+                  <p>Drag or drop some files here, or click to select files</p>
+              }
+            </div>
+          </div>
           {
             img.map(e => {
               return (
-                <div key={e.id} className='w-[180px] h-full rounded-lg relative mb-3'>
+                <div key={e.id} className='w-[180px] h-[230px] rounded-lg relative mb-3'>
                   <Trash role='button' onClick={() => {
                     removeShowcaseImage({
                       img: e.img,

@@ -13,8 +13,8 @@ const Footer = () => {
                     {/* Logo and Description */}
                     <div className="w-full md:w-1/3 mb-6 md:mb-0 px-2">
                         <Logo />
-                        <p className="mt-4 dark:text-gray-400">
-                        100% export warranted buying  house
+                        <p className="mt-4 dark:text-gray-400 capitalize font-sans font-medium">
+                            100% export warranted buying  house
                         </p>
                     </div>
                     {/* Links */}
@@ -30,9 +30,9 @@ const Footer = () => {
                     <div className="w-full md:w-1/3 mb-6 md:mb-0">
                         <h3 className="text-xl font-semibold">Contact Us</h3>
                         <p className="mt-4 dark:text-gray-400">
-                            123 Main Street, City, Country<br />
-                            Email: info@example.com<br />
-                            Phone: (123) 456-7890
+                            House 34 Road 5 Sector 13 Uttara 1230 Dhaka, Bangladesh<br />
+                            <a href="mailto:anhatradeinternational1@gmail.com">Email: anhatradeinternational1@gmail.com</a><br />
+                            Phone: +8801511560330
                         </p>
                     </div>
                 </div>

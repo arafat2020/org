@@ -50,13 +50,13 @@ const Contact = () => {
                             title="Company Location"
                         ></iframe>
                         <p className="text-lg">
-                            <strong>Gurmant Headquarters</strong>
+                            <strong>Anha Trade International</strong>
                             <br />
-                            123 Main Street
+                            House 34 Road 5 
                             <br />
-                            Melbourne, VIC 3000, Australia
+                            Sector 13 Uttara 1230 Dhaka, Bangladesh
                             <br />
-                            Phone: (123) 456-7890
+                            Phone: +8801511560330
                         </p>
                     </div>
 

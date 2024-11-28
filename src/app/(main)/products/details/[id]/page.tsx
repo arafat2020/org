@@ -41,14 +41,14 @@ function Details({ params }: { params: { id: string } }) {
                 <div className='w-[100%] md:w-2/3 '>
                     <h2 className='text-xl font-sans font-semibold mb-3'>{data?.product?.name}</h2>
                     <p className='line-clamp-[7]'>{data?.product?.description}</p>
-                    <div className='w-full mt-4 grid grid-cols-3 lg:grid-cols-5 grid-rows-1 gap-3'>
+                    <div className='w-full mt-4 grid grid-cols-5 lg:grid-cols-7 grid-rows-1 gap-3'>
                         {
                             data?.product?.showcaseImg.map(e => (
                                 <div key={e.id} onMouseEnter={() => {
                                     setImg(e.img)
                                 }} style={{
                                     backgroundImage: `url(${e.img})`
-                                }} className='col-span-1 row-span-1 h-[300px] bg-center rounded-lg duration-300 hover:scale-110'>
+                                }} className='col-span-1 row-span-1 h-[180px] bg-center rounded-lg duration-300 hover:scale-110  hover:border-cyan-600 hover:border-[3px]'>
 
                                 </div>
                             ))
