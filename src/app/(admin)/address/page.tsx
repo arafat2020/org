@@ -42,7 +42,7 @@ function EditAddress() {
         <Label>
           House Name
         </Label>
-        <Input disabled={isPending} defaultValue={data?.house} onChange={e => editAddress({
+        <Input   defaultValue={data?.house} onChange={e => editAddress({
           house: e.target.value
         })} type='text' name="product" required />
       </div>
@@ -50,7 +50,7 @@ function EditAddress() {
         <Label>
           Road
         </Label>
-        <Input disabled={isPending} defaultValue={data?.road} onChange={e => editAddress({
+        <Input   defaultValue={data?.road} onChange={e => editAddress({
           road: e.target.value
         })} type='text' name="product" required />
       </div>
@@ -58,7 +58,7 @@ function EditAddress() {
         <Label>
           Email Name
         </Label>
-        <Input disabled={isPending} defaultValue={data?.email} onChange={e => editAddress({
+        <Input   defaultValue={data?.email} onChange={e => editAddress({
           email: e.target.value
         })} type='email' name="product" required />
       </div>
@@ -66,7 +66,7 @@ function EditAddress() {
         <Label>
           Phone
         </Label>
-        <Input disabled={isPending} defaultValue={data?.phone ? data.phone : ""} onChange={e => editAddress({
+        <Input   defaultValue={data?.phone ? data.phone : ""} onChange={e => editAddress({
           phone: e.target.value
         })} type='tel' name="product" required />
       </div>
