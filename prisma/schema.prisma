@@ -94,6 +94,25 @@ model JobType {
   date           DateTime         @default(now())
 }
 
+model Keycontact {
+  id             String           @id @default(uuid())
+  name String
+  designation String
+  LinkedInLink String?
+  twitterLink String?
+  emailLink String?
+  faceBookLink String?
+  speach String?
+}
+
+model Address {
+  id             String           @id @default(uuid())
+  house String
+  road String
+  email String
+  phone String?
+}
+
 model BannerPic {
   id   String  @id @default(uuid())
   pic  String

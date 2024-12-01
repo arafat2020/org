@@ -32,6 +32,10 @@ const Contact = () => {
         }
     })
     const onSubmit: SubmitHandler<ContactInput> = (data) => mutate(data)
+    const {
+        data: address,
+        isLoading
+    } = trpc.address.getAddress.useQuery()
     return (
         <div className="min-h-screen w-full bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-gray-100">
             <header className="p-4 flex justify-between items-center border-b">
@@ -52,11 +56,11 @@ const Contact = () => {
                         <p className="text-lg">
                             <strong>Anha Trade International</strong>
                             <br />
-                            House 34 Road 5 
+                            House {address?.house}  
                             <br />
-                            Sector 13 Uttara 1230 Dhaka, Bangladesh
+                            {address?.road}
                             <br />
-                            Phone: +8801511560330
+                            Phone: {address?.phone}
                         </p>
                     </div>
 

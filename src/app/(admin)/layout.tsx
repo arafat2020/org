@@ -3,13 +3,9 @@ import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import {
   IconArrowLeft,
-  IconBrandTabler,
-  IconSettings,
-  IconUserBolt,
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -17,7 +13,8 @@ import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AiFillProduct } from "react-icons/ai";
 import { IoDocumentAttach } from "react-icons/io5";
-import { MdCategory, MdHomeFilled } from "react-icons/md";
+import { MdCategory, MdHomeFilled, MdAddLocationAlt  } from "react-icons/md";
+import { IoIosContacts } from "react-icons/io";
 
 
 
@@ -55,6 +52,20 @@ export default function SidebarDemo({ children }: { children: React.ReactNode })
       href: "/category",
       icon: (
         <MdCategory className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Address",
+      href: "/address",
+      icon: (
+        <MdAddLocationAlt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Key-Contact",
+      href: "/key-contact-edit",
+      icon: (
+        <IoIosContacts className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
   ];

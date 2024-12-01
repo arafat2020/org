@@ -79,7 +79,6 @@ const Tag = ({ edit, tag, id }: TagProp) => {
     const filteredTags = data?.filter((tag) =>
         tag.name.toLowerCase().includes(filterQuery.toLowerCase())
     );
-    console.log(data)
     return (
         <div className={cn("w-full flex flex-col space-y-3 transition duration-300",
             !edit ? "scale-100" : "scale-0"

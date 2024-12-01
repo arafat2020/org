@@ -7,6 +7,7 @@ import { userRouter } from "./router/user";
 import { jobRouter } from "./router/job";
 import { siteRouter } from "./router/site";
 import { tagRouter } from "./router/tag";
+import { addressRoute } from "./router/address";
 const { createCallerFactory } = initTRPC.create()
 
 export const appRouter = route({
@@ -16,7 +17,8 @@ export const appRouter = route({
     user: userRouter,
     job: jobRouter,
     site: siteRouter,
-    tag: tagRouter
+    tag: tagRouter,
+    address: addressRoute
 })
 
 export const createCaller = createCallerFactory(appRouter)

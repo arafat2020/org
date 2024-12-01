@@ -2,8 +2,9 @@ import React from 'react';
 import Logo from './Logo';
 import { FooterIcon } from './FooterIcon';
 import Link from 'next/link';
+;
 
-const Footer = () => {
+async function Footer({FooterAddress}:{FooterAddress:React.ReactNode}) {
     return (
         <footer className="text-white py-8 mt-10
             bg-gradient-to-tl from-slate-200 via-zinc-200 to-slate-200 
@@ -27,14 +28,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     {/* Contact Info */}
-                    <div className="w-full md:w-1/3 mb-6 md:mb-0">
-                        <h3 className="text-xl font-semibold">Contact Us</h3>
-                        <p className="mt-4 dark:text-gray-400">
-                            House 34 Road 5 Sector 13 Uttara 1230 Dhaka, Bangladesh<br />
-                            <a href="mailto:anhatradeinternational1@gmail.com">Email: anhatradeinternational1@gmail.com</a><br />
-                            Phone: +8801511560330
-                        </p>
-                    </div>
+                    {FooterAddress}
                 </div>
                 <div className="mt-8 text-center dark:text-gray-400 border border-x-0 border-t-0 border-b-cyan-800 w-fit p-1 mx-auto">
                     &copy; 2024 Your Company. All rights reserved.
