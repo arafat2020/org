@@ -53,11 +53,11 @@ function SignUp() {
                     <Input {...register("username", { required: true })} placeholder='Type your name' type="text" />
                 </LabelInputContainer>
                 <LabelInputContainer className="mb-4">
-                    <Label htmlFor="Full Name">Full Name</Label>
+                    <Label htmlFor="Full Name">Password</Label>
                     <Input {...register("password", { required: true })} placeholder='Type your name' type="password" />
                 </LabelInputContainer>
                 <LabelInputContainer className="mb-4">
-                    <Label htmlFor="Full Name">Full Name</Label>
+                    <Label htmlFor="Full Name">Email</Label>
                     <Input {...register("email", { required: true })} placeholder='Type your name' type="email" />
                 </LabelInputContainer>
                 <div>

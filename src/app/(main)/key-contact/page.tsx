@@ -1,7 +1,11 @@
+import { serverClient } from '@/app/_trpc/serverClient';
+import Link from 'next/link';
 import React from 'react';
-import { FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { FaLinkedin, FaTwitter, FaEnvelope, FaFacebook } from 'react-icons/fa';
 
-const KeyContacts = () => {
+const KeyContacts = async () => {
+  const data = await serverClient.keyContact.getKeyContact()
+  console.log(data)
   const contacts = [
     {
       name: "John Doe",
@@ -44,7 +48,53 @@ const KeyContacts = () => {
       </header>
       <main className="p-8">
         <section className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {contacts.map((contact, index) => (
+          {data.length ? data.map(contact => (
+            <Link href={`/speach/${contact.id}`} key={contact.id}
+            >
+              <div
+                role="button"
+                className="bg-gray-100 dark:bg-slate-800 p-6 rounded-lg shadow-lg flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:bg-gray-200"
+              >
+                <img
+                  src={contact.pic}
+                  alt={contact.name}
+                  className="w-24 h-24 object-cover rounded-full mb-4 shadow-md"
+                />
+                <h2 className="text-xl font-semibold mb-2">{contact.name}</h2>
+                <p className="text-gray-600 mb-4">{contact.designation}</p>
+                <div className="flex space-x-4">
+                  {contact.LinkedInLink ? (
+                    <a href={contact.LinkedInLink} target="_blank" rel="noopener noreferrer">
+                      <FaLinkedin className="text-blue-600 w-6 h-6 hover:text-blue-800" />
+                    </a>
+                  ) : (
+                    <FaLinkedin className="text-gray-400 w-6 h-6 cursor-not-allowed" />
+                  )}
+                  {contact.twitterLink ? (
+                    <a href={contact.twitterLink} target="_blank" rel="noopener noreferrer">
+                      <FaTwitter className="text-blue-400 w-6 h-6 hover:text-blue-600" />
+                    </a>
+                  ) : (
+                    <FaTwitter className="text-gray-400 w-6 h-6 cursor-not-allowed" />
+                  )}
+                  {contact.emailLink ? (
+                    <a href={`mailto:${contact.emailLink}`}>
+                      <FaEnvelope className="text-gray-600 w-6 h-6 hover:text-gray-800" />
+                    </a>
+                  ) : (
+                    <FaEnvelope className="text-gray-400 w-6 h-6 cursor-not-allowed" />
+                  )}
+                  {contact.faceBookLink ? (
+                    <a href={contact.faceBookLink} target="_blank" rel="noopener noreferrer">
+                      <FaFacebook className="text-blue-600 w-6 h-6 hover:text-blue-800" />
+                    </a>
+                  ) : (
+                    <FaFacebook className="text-gray-400 w-6 h-6 cursor-not-allowed" />
+                  )}
+                </div>
+              </div>
+            </Link>
+          )) : contacts.map((contact, index) => (
             <div
               key={index}
               className="bg-gray-100 dark:bg-slate-800 p-6 rounded-lg shadow-lg flex flex-col items-center text-center transform transition duration-300 hover:scale-105 hover:bg-gray-200"

@@ -94,9 +94,10 @@ model JobType {
   date           DateTime         @default(now())
 }
 
-model Keycontact {
+model KeyContact {
   id             String           @id @default(uuid())
   name String
+  pic String
   designation String
   LinkedInLink String?
   twitterLink String?

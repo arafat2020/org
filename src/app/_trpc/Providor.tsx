@@ -4,7 +4,6 @@ import { httpBatchLink } from "@trpc/client";
 import React, { useState } from "react";
 
 import { trpc } from "./client";
-import { URL } from "./settings";
 import useOrigin from "@/hooks/useOrigin";
 
 
