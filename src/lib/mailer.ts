@@ -1,52 +1,56 @@
-
-import { Transporter, createTransport, } from 'nodemailer'
+import { Transporter, createTransport } from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
-
-
 export class Mailer {
-    transport: Transporter
-    mailOptionsTXT: Mail.Options
+    transport: Transporter;
+    mailOptionsTXT: Mail.Options;
     info: {
-        err: boolean,
-        info: any
-    }
+        err: boolean;
+        info: any;
+    };
+
     constructor(
         email: string,
         subject: string,
-        text: string,
+        text: string
     ) {
+        // Create the transport with Namecheap Private Email SMTP settings
         this.transport = createTransport({
-            service: "Gmail",
-            host: "smtp.gmail.com",
-            port: 465,
-            secure: true,
+            host: "mail.privateemail.com", // Namecheap SMTP host
+            port: 465, // SSL port for Private Email
+            secure: true, // Use SSL
             auth: {
-                user: "arafatmannan2019@gmail.com",
-                pass: process.env.PASS
-            }
-        })
+                user: "contact@anhabd.com", // Your Namecheap Private Email
+                pass: "contact@1234", // Use environment variable for password
+            },
+        });
+
+        // Define mail options
         this.mailOptionsTXT = {
-            from: "arafatmannan2019@gmail.com",
-            to: email ? email : 'arafatmannan9@gmail.com',
-            subject: subject,
-            text: text,
-        }
+            from: email, // Sender's email (Namecheap email)
+            to:  "contact@anhabd.com", // Recipient's email
+            subject: subject, // Email subject
+            text: text, // Plain text content
+        };
+
         this.info = {
             err: false,
-            info: 'idle'
-        }
+            info: "idle",
+        };
     }
+
+    // Async method to send the email
     async sendMail() {
-        console.log(process.env.PASS);
-        
-        await this.transport.sendMail(this.mailOptionsTXT, (err, data) => {
-            if (err) {
-                console.log(err);
-                return err
-            } else {
-                console.log(data);
-                return data
-            }
-        })
+        console.log("Sending email...");
+
+        try {
+            const result = await this.transport.sendMail(this.mailOptionsTXT);
+            console.log("Email sent successfully:", result);
+            return result;
+        } catch (error) {
+            console.error("Error while sending email:", error);
+            this.info.err = true;
+            this.info.info = error;
+            return error;
+        }
     }
 }
