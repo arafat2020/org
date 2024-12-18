@@ -15,7 +15,7 @@ export const mailRouter = route({
         )
 
         const mailForRequestReceiver = new Mailer(
-            "arafatmannan2019@gmail.com",
+            "contact@anhabd.com",
             `Request form ${input.name}`,
             `${input.message}\nName: ${input.name}\nE-mail: ${input.email}`
         )
