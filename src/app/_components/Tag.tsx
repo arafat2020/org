@@ -80,7 +80,7 @@ const Tag = ({ edit, tag, id }: TagProp) => {
         tag.name.toLowerCase().includes(filterQuery.toLowerCase())
     );
     return (
-        <div className={cn("w-full flex flex-col space-y-3 transition duration-300",
+        <div className={cn("w-full flex flex-col space-y-3 transition duration-300 !mt-20",
             !edit ? "scale-100" : "scale-0"
         )}>
             <Label>Edit Tag</Label>

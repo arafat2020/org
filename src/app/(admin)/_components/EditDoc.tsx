@@ -10,6 +10,10 @@ import { Save } from 'lucide-react'
 import React from 'react'
 import { toast } from 'sonner'
 import { useDebounceCallback } from 'usehooks-ts'
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { cn } from '@/lib/utils'
+
 
 
 interface EditDocProp {
@@ -73,7 +77,11 @@ function EditDoc({
         <Label>
           Descriptions
         </Label>
-        <Textarea disabled={edit} defaultValue={description} onChange={e=>editDescription(e.target.value)} />
+        {/* <Textarea disabled={edit} defaultValue={description} onChange={e=>editDescription(e.target.value)} /> */}
+         <ReactQuill className={cn("transition duration-300 scale-0 ",
+         edit?"scale-0": "scale-100"
+         )} theme="snow" defaultValue={description} onChange={e=>editDescription(e)}/>
+
       </div>
       <Tag id={id} edit={edit} tag={tag} />
     </div>

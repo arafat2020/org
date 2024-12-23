@@ -37,10 +37,12 @@ function Details({ params }: { params: { id: string } }) {
             <div className='w-full flex flex-col md:flex-row mt-3 md:space-x-6'>
                 <div style={{
                     backgroundImage: `url(${img})`
-                }} className='w-full sm:w-2/3 mx-auto md:mx-0 mb-3 md:mb-0 md:w-1/4 h-[450px] rounded-lg bg-center bg-cover bg-no-repeat'/>
+                }} className='w-full sm:w-2/3 mx-auto md:mx-0 mb-3 md:mb-0 md:w-1/4 h-[450px] rounded-lg bg-center bg-cover bg-no-repeat' />
                 <div className='w-[100%] md:w-2/3 '>
                     <h2 className='text-xl font-sans font-semibold mb-3'>{data?.product?.name}</h2>
-                    <p className='line-clamp-[7]'>{data?.product?.description}</p>
+                    <div className='w-full h-auto reset-styles list-[initial] text-[initial]' dangerouslySetInnerHTML={{
+                        __html: data?.product?.description || ""
+                    }} />
                     <div className='w-full mt-4 grid grid-cols-5 lg:grid-cols-7 grid-rows-1 gap-3'>
                         {
                             data?.product?.showcaseImg.map(e => (
@@ -59,27 +61,27 @@ function Details({ params }: { params: { id: string } }) {
             <h2 className='text-2xl font-sans font-semibold text-center my-6'>Smiler Products</h2>
             <Marquee pauseOnHover className='[--duration:20s]'>
                 {
-                    data?.simileProduct.map(e=>(
-                        <figure onClick={()=>push(`/products/details/${e.id}`)} key={e.id}
-                        className={cn(
-                          "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
-                          // light styles
-                          "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
-                          // dark styles
-                          "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
-                        )}
-                      >
-                        <div className="flex flex-row items-center gap-2">
-                          <img className="rounded-lg w-[80px] h-[120px]" alt="" src={e.primaryImg} />
-                          <div className="flex flex-col">
-                            <figcaption className="text-sm font-medium dark:text-white line-clamp-1">
-                              {e.name}
-                            </figcaption>
-                            <p className="text-xs font-medium dark:text-white/40">{e.SubCategory?.name}</p>
-                          </div>
-                        </div>
-                        <blockquote className="mt-2 text-sm line-clamp-3">{e.description}</blockquote>
-                      </figure>
+                    data?.simileProduct.map(e => (
+                        <figure onClick={() => push(`/products/details/${e.id}`)} key={e.id}
+                            className={cn(
+                                "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
+                                // light styles
+                                "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
+                                // dark styles
+                                "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
+                            )}
+                        >
+                            <div className="flex flex-row items-center gap-2">
+                                <img className="rounded-lg w-[80px] h-[120px]" alt="" src={e.primaryImg} />
+                                <div className="flex flex-col">
+                                    <figcaption className="text-sm font-medium dark:text-white line-clamp-1">
+                                        {e.name}
+                                    </figcaption>
+                                    <p className="text-xs font-medium dark:text-white/40">{e.SubCategory?.name}</p>
+                                </div>
+                            </div>
+                            <blockquote className="mt-2 text-sm line-clamp-3">{e.description}</blockquote>
+                        </figure>
                     ))
                 }
             </Marquee>
