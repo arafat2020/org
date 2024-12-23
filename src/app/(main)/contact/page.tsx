@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useRef } from 'react';
@@ -23,11 +22,11 @@ const Contact = () => {
     } = useForm<ContactInput>();
     const inputRef = useRef<HTMLFormElement>(null)
     const { mutate, isPending } = trpc.mail.sendMail.useMutation({
-        onSuccess:()=>{
+        onSuccess: () => {
             toast.success("Mail has sent, please wait for response")
             inputRef.current?.reset()
         },
-        onError:()=>{
+        onError: () => {
             toast.error("Something is went wrong")
         }
     })
@@ -42,6 +41,25 @@ const Contact = () => {
                 <h1 className="text-2xl font-bold">Contact Us</h1>
             </header>
             <main className="p-8">
+                {/* Greeting Section */}
+                <section className="max-w-6xl mx-auto bg-white dark:bg-slate-900 p-6 rounded-lg shadow-lg mb-8">
+                    <h2 className="text-xl font-semibold mb-4">We&apos;re Here to Help!</h2>
+                    <p className="text-lg">
+                        We are available to assist you with any questions you may have!
+                    </p>
+                    <ul className="list-disc pl-5 mt-2">
+                        <li>New Development Sample</li>
+                        <li>Any Quotation</li>
+                        <li>New Order</li>
+                        <li>Readymade Garments</li>
+                    </ul>
+                    <p className="mt-4">Email: <a href="mailto:contact@anhabd.com" className="text-blue-600">contact@anhabd.com</a></p>
+                    <p className="mt-4">
+                        We also value your feedback on your orders or any part of the process. Please feel free to let us know how we can help you.
+                    </p>
+                    <p className="mt-4">You would be appreciated by us for your any requests. Thank you for visiting our website, and we look forward to hearing from you!</p>
+                </section>
+
                 <section className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Map & Address Section */}
                     <div className="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-lg">
@@ -56,7 +74,7 @@ const Contact = () => {
                         <p className="text-lg">
                             <strong>Anha Trade International</strong>
                             <br />
-                            House {address?.house}  
+                            House {address?.house}
                             <br />
                             {address?.road}
                             <br />
@@ -93,7 +111,7 @@ const Contact = () => {
                                     className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
                                     type="submit"
                                 >
-                                    {isPending ? <Loader2 className='w-6 h-6 animate-spin mx-auto'/> : "Submit"}
+                                    {isPending ? <Loader2 className='w-6 h-6 animate-spin mx-auto' /> : "Submit"}
                                     <BottomGradient />
                                 </button>
                             </div>

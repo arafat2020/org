@@ -26,8 +26,8 @@ export class Mailer {
 
         // Define mail options
         this.mailOptionsTXT = {
-            from: email, // Sender's email (Namecheap email)
-            to:  "contact@anhabd.com", // Recipient's email
+            from: "contact@anhabd.com", // Sender's email (Namecheap email)
+            to:  email, // Recipient's email
             subject: subject, // Email subject
             text: text, // Plain text content
         };
