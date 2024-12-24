@@ -136,6 +136,7 @@ model Company {
   name    String
   link    String?
   mediaId String
+  publish Boolean @default(false)
 }
 
 model Bucket {
@@ -149,6 +150,7 @@ model WhayUs {
   description String
   media       Media  @relation(fields: [mediaId], references: [id])
   mediaId     String
+  publish Boolean @default(false)
 }
 
 model CompanyOverView {
