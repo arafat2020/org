@@ -2,6 +2,7 @@ import { z } from "zod";
 import { adminProcedure, procedure, route } from "../trpc";
 import prisma from "@/lib/db";
 import { TRPCError } from "@trpc/server";
+import { deleteFileFromServer } from "@/lib/deleteFormServer";
 
 export const productRouter = route({
     postProduct: adminProcedure.input(z.object({
@@ -51,13 +52,9 @@ export const productRouter = route({
         })
         if (!product) return
         try {
-            await fetch(`${input.origin}/api/delete?fileName=${encodeURIComponent(product.primaryImg)}`, {
-                method: 'DELETE',
-            });
+            await deleteFileFromServer(product.primaryImg)
             await product.showcaseImg.map(async e => {
-                await fetch(`${input.origin}/api/delete?fileName=${encodeURIComponent(e.img)}`, {
-                    method: 'DELETE',
-                });
+                await deleteFileFromServer(e.img)
             })
         } catch (error) {
             console.log(error);

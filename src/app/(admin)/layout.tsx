@@ -15,6 +15,8 @@ import { AiFillProduct } from "react-icons/ai";
 import { IoDocumentAttach } from "react-icons/io5";
 import { MdCategory, MdHomeFilled, MdAddLocationAlt  } from "react-icons/md";
 import { IoIosContacts } from "react-icons/io";
+import { BsBucketFill } from "react-icons/bs";
+
 
 
 
@@ -66,6 +68,13 @@ export default function SidebarDemo({ children }: { children: React.ReactNode })
       href: "/key-contact-edit",
       icon: (
         <IoIosContacts className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Media Bucket",
+      href: "/bucket",
+      icon: (
+        <BsBucketFill className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
   ];

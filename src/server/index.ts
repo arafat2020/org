@@ -9,6 +9,8 @@ import { siteRouter } from "./router/site";
 import { tagRouter } from "./router/tag";
 import { addressRoute } from "./router/address";
 import { keyContactRouter } from "./router/key-contect";
+import { bucketRoute } from "./router/bucket";
+import { mediaRoute } from "./router/media";
 const { createCallerFactory } = initTRPC.create()
 
 export const appRouter = route({
@@ -20,7 +22,9 @@ export const appRouter = route({
     site: siteRouter,
     tag: tagRouter,
     address: addressRoute,
-    keyContact: keyContactRouter
+    keyContact: keyContactRouter,
+    bucket: bucketRoute,
+    media: mediaRoute
 })
 
 export const createCaller = createCallerFactory(appRouter)
