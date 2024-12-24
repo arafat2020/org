@@ -4,46 +4,35 @@ import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Handles file uploads by saving the file to the specified directory.
- * 
+ *
  * @param {File | Buffer} file - The file to be uploaded, either a `File` or `Buffer`.
- * @param {string} [uploadDir='public/bin'] - The directory where the file will be uploaded (relative to the project root).
+ * @param {string} [uploadDir='public2/bin'] - The directory where the file will be uploaded.
  * @returns {Promise<{ success: boolean; url?: string; error?: string }>} - The result of the upload.
  */
 export async function uploadForServer(
     file: File | Buffer,
-    uploadDir: string = 'public/bin'
+    uploadDir: string = 'public2/bin'
 ): Promise<{ success: boolean; url?: string; error?: string }> {
-    if (!(file instanceof Buffer) && !(file instanceof File)) {
-        return { success: false, error: 'No valid file provided' };
-    }
-
     try {
-        // If it's a File, convert it to a Buffer
-        let buffer: Buffer;
-        if (file instanceof File) {
-            const bytes = await file.arrayBuffer();
-            buffer = Buffer.from(bytes);
-        } else {
-            buffer = file;
+        if (!(file instanceof Buffer || file instanceof File)) {
+            return { success: false, error: 'Invalid file type provided' };
         }
 
-        // Define the full path to the upload directory
+        // Convert File to Buffer if necessary
+        const buffer = file instanceof File ? Buffer.from(await file.arrayBuffer()) : file;
+
+        // Define the path to the upload directory
         const dirPath = join(process.cwd(), uploadDir);
 
         // Ensure the directory exists, creating it if necessary
         await mkdir(dirPath, { recursive: true });
 
-        // If it's a File, sanitize its name
-        let sanitizedFileName: string;
-        if (file instanceof File) {
-            sanitizedFileName = file.name
-                .replace(/\s+/g, '-') // Replace spaces with hyphens
-                .replace(/[^a-zA-Z0-9.-]/g, ''); // Remove non-alphanumeric characters except dots and hyphens
-        } else {
-            sanitizedFileName = 'uploaded-file'; // Default name for buffer uploads
-        }
+        // Sanitize the file name if it's a File
+        const sanitizedFileName = file instanceof File
+            ? file.name.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9.-]/g, '')
+            : `buffer-upload`;
 
-        // Generate a unique file name and path
+        // Generate a unique file name
         const uniqueFileName = `${uuidv4()}-${sanitizedFileName}`;
         const filePath = join(dirPath, uniqueFileName);
 
@@ -51,7 +40,7 @@ export async function uploadForServer(
         await writeFile(filePath, buffer);
         console.log(`File uploaded to ${filePath}`);
 
-        // Generate the URL to access the uploaded file
+        // Generate the public URL
         const url = `/${uploadDir.split('/').slice(1).join('/')}/${uniqueFileName}`;
 
         return { success: true, url };
