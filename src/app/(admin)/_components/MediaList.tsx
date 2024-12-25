@@ -7,7 +7,7 @@ import { BsPlus } from 'react-icons/bs'
 import Media from './Media'
 import { toast } from 'sonner'
 interface MediaListProp {
-    bucketId?: string
+    bucketId?: string | null
 }
 function MediaList({
     bucketId
@@ -30,6 +30,7 @@ function MediaList({
     useEffect(() => {
         if (bucketId) refetch()
     }, [bucketId, refetch])
+    if (!bucketId) return null
     if (isLoading) {
         return (
             <div className='w-full h-full flex justify-around items-center'>
@@ -37,10 +38,9 @@ function MediaList({
             </div>
         );
     }
-    if (!bucketId) return null
     if (data?.length) return (
-        <div className='flex-grow min-h-full flex flex-col space-y-3 order p-1 border-slate-800 rounded-md bg-black rounded-l-lg'>
-            <div className="flex justify-between items-center mt-3 border p-1 border-slate-800 rounded-md">
+        <div className='flex-grow h-auto flex flex-col space-y-3 order p-1 border-slate-800 rounded-md bg-black/60 rounded-l-lg'>
+            <div className="flex justify-between items-center mt-3  p-1 px-3 rounded-md">
                 <h1 className="text-2xl font-sans font-semibold  ">
                     Add Media File
                 </h1>
@@ -50,7 +50,7 @@ function MediaList({
                     />
                 </AddMediaDialog>
             </div>
-            <div className='flex flex-col space-y-3'>
+            <div className='grid grid-cols-5 gap-3 h-auto'>
                 {data.map(e => (
                     <Media key={e.id} deleteMedia={deleteMedia} {...e} />
                 ))}

@@ -10,7 +10,7 @@ import { Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 function Buckets() {
-  const [BucketId, setBucketId] = useState<string>()
+  const [BucketId, setBucketId] = useState<string|null>()
   const { data: buckets, isLoading } = trpc.bucket.getAllBucket.useQuery()
   const utils = trpc.useUtils()
   const { mutate: editBucket } = trpc.bucket.updateBucket.useMutation({
@@ -25,8 +25,9 @@ function Buckets() {
     onSuccess: () => {
       utils.bucket.getAllBucket.invalidate()
       utils.media.getMediaByBucket.invalidate({
-        id: BucketId
+        id: BucketId? BucketId: ""
       })
+      setBucketId(null)
       toast("Bucket Deleted")
     },
     onError: (error) => {
@@ -51,7 +52,7 @@ function Buckets() {
     );
 }
   return (
-    <div className='w-full min-h-full flex space-x-3'>
+    <div className='w-full h-auto flex space-x-3'>
       <div className='w-1/3'>
         <div className="flex justify-between items-center mt-3 border p-1 border-slate-800 rounded-md">
           <h1 className="text-2xl font-sans font-semibold  ">
