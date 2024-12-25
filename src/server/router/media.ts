@@ -8,16 +8,14 @@ import { mediaSchema } from "@/schema/media";
 
 export const mediaRoute = route({
     createMedia: adminProcedure
-        .input(mediaSchema)
+        .input(z.object({
+            name: z.string().min(1),
+            bucketId: z.string().min(1),
+            url: z.string().min(1)
+        }))
         .mutation(async ({ input }) => {
-            const {file, ...rest} = input
-            const instance = await uploadForServer(file)
-            if (!instance.url || !instance.success) throw new TRPCError({code:"INTERNAL_SERVER_ERROR"})
             const created = await prisma.media.create({
-                data: {
-                    url: instance.url,
-                    ...rest
-                },
+                data: input,
             });
 
             return created;

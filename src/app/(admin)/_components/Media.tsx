@@ -16,7 +16,7 @@ function Media({
     return (
         <div className='w-full flex space-x-3 cursor-pointer items-center border border-slate-800 rounded-md p-2'>
             <img loading='lazy' src={url} alt={name} className='w-10 h-10 object-fill rounded-md'/>
-            <p>{name}</p>
+            <p className='flex-grow font-sans'>{name}</p>
             <button
                 onClick={() => deleteMedia({
                     id

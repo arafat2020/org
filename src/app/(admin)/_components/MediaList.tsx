@@ -39,7 +39,7 @@ function MediaList({
     }
     if (!bucketId) return null
     if (data?.length) return (
-        <div className='flex-grow min-h-full flex flex-col space-y-3 order p-1 border-slate-800 rounded-md'>
+        <div className='flex-grow min-h-full flex flex-col space-y-3 order p-1 border-slate-800 rounded-md bg-black rounded-l-lg'>
             <div className="flex justify-between items-center mt-3 border p-1 border-slate-800 rounded-md">
                 <h1 className="text-2xl font-sans font-semibold  ">
                     Add Media File

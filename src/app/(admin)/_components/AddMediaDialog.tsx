@@ -17,6 +17,8 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { z } from 'zod';
+import { upload } from '@/lib/upload';
 
 interface AddMediaDialogProp {
     children: React.ReactNode;
@@ -26,6 +28,7 @@ interface AddMediaDialogProp {
 function AddMediaDialog({ children, bucketId }: AddMediaDialogProp) {
     type MediaForm = {
         name: string;
+        bucketId: string
         file: File[]; // Expecting an array of files
     };
 
@@ -43,8 +46,8 @@ function AddMediaDialog({ children, bucketId }: AddMediaDialogProp) {
     const { register, handleSubmit, formState: { errors } } = useForm<MediaForm>();
 
     const onSubmit: SubmitHandler<MediaForm> = async (data) => {
-        const { name, file } = data;
-
+        const { file } = data;
+        data.bucketId = bucketId
         if (!file || file.length === 0) {
             toast.error("Please select a file.");
             return;
@@ -55,15 +58,27 @@ function AddMediaDialog({ children, bucketId }: AddMediaDialogProp) {
             return;
         }
 
+        const formSchema = z.object({
+            name: z.string().min(1),
+            bucketId: z.string().min(1),
+            file: z.record(z.any())
+        })
         // Create FormData and append fields
-        const formData = new FormData();
-        formData.set("name", name);
-        formData.set("bucketId", bucketId); // Append the bucketId
-        formData.set("file", file[0]); // Append the first file
-        console.log(formData);
-        
+        try {
+            const validData = formSchema.parse(data); // Throws an error if validation fails
+            const instance = await upload(validData.file[0])
+            if (!instance) return
+            mutate({
+                url: instance,
+                bucketId: data.bucketId,
+                name: data.name
+            })
+          } catch (error) {
+            if (error instanceof z.ZodError) {
+              console.error("Validation Errors:", error.errors);
+            }
+          }
         // Submit the FormData
-        mutate(formData);
     };
 
     return (
