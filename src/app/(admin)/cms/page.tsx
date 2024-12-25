@@ -34,9 +34,9 @@ function Cms() {
         <div className="w-full h-auto grid grid-cols-5 gap-3">
             {
                 Components.map(e=>(
-                    <Link href={e.href} key={e.name} className='flex items-center space-x-3'>
+                    <Link href={e.href} key={e.name} className='flex items-center space-x-3 bg-black/20 p-3 rounded-md'>
                         <GrApps className='w-14 h-14 text-slate-500'/>
-                        <h1 className='line-clamp-1 font-sans text-xl flex-grow'>{e.name}</h1>
+                        <h1 className='line-clamp-1 font-sans text-xl flex-grow font-semibold'>{e.name}</h1>
                     </Link>
                 ))
             }

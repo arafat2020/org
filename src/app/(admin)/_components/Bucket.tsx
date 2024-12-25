@@ -19,7 +19,7 @@ function Bucket({
 }: BucketProp) {
     const [edit, setEdit] = useState<boolean>(true)
     return (
-        <div onClick={setBucket} className='w-full flex space-x-3 cursor-pointer items-center border border-slate-800 rounded-md p-2'>
+        <div onClick={setBucket} className='w-full flex space-x-3 cursor-pointer items-center border border-slate-800 rounded-md p-2 bg-black'>
             <BsBucket/>
             <input
                 onChange={e => editBucketDebounce(id, e.target.value)}

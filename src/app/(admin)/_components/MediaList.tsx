@@ -50,7 +50,7 @@ function MediaList({
                     />
                 </AddMediaDialog>
             </div>
-            <div className='grid grid-cols-5 gap-3 h-auto'>
+            <div className='grid grid-cols-4 gap-3 h-auto'>
                 {data.map(e => (
                     <Media key={e.id} deleteMedia={deleteMedia} {...e} />
                 ))}

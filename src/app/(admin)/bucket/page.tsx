@@ -52,8 +52,8 @@ function Buckets() {
     );
 }
   return (
-    <div className='w-full h-auto flex space-x-3'>
-      <div className='w-1/3'>
+    <div className='w-full h-auto flex space-x-3 '>
+      <div className='w-1/3 bg-black/50 p-3 rounded-md'>
         <div className="flex justify-between items-center mt-3 border p-1 border-slate-800 rounded-md">
           <h1 className="text-2xl font-sans font-semibold  ">
             Add bucket
@@ -64,7 +64,7 @@ function Buckets() {
             className='w-7 h-7 text-cyan-800'
           />
         </div>
-        <div className={cn("w-full flex flex-col p-2 space-y-3",buckets?.length && "border border-slate-800")}>
+        <div className={cn("w-full flex flex-col p-2 space-y-3",buckets?.length && "border border-slate-800 ")}>
           {buckets?.map(e => (
             <Bucket
               setBucket={() => setBucketId(e.id)}
