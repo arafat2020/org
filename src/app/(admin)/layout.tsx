@@ -16,9 +16,7 @@ import { IoDocumentAttach } from "react-icons/io5";
 import { MdCategory, MdHomeFilled, MdAddLocationAlt  } from "react-icons/md";
 import { IoIosContacts } from "react-icons/io";
 import { BsBucketFill } from "react-icons/bs";
-
-
-
+import { MdAppRegistration } from "react-icons/md";
 
 
 export default function SidebarDemo({ children }: { children: React.ReactNode }) {
@@ -75,6 +73,13 @@ export default function SidebarDemo({ children }: { children: React.ReactNode })
       href: "/bucket",
       icon: (
         <BsBucketFill className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "CMS",
+      href: "/cms",
+      icon: (
+        <MdAppRegistration className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
   ];
