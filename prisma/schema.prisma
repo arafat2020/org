@@ -132,11 +132,10 @@ model Review {
 
 model Company {
   id      String  @id @default(uuid())
-  pic     Media   @relation(fields: [mediaId], references: [id])
+  pic     Media?   @relation(fields: [mediaId], references: [id])
   name    String
   link    String?
-  mediaId String
-  publish Boolean @default(false)
+  mediaId String?
 }
 
 model Bucket {

@@ -11,6 +11,7 @@ import { addressRoute } from "./router/address";
 import { keyContactRouter } from "./router/key-contect";
 import { bucketRoute } from "./router/bucket";
 import { mediaRoute } from "./router/media";
+import { cmsRoute } from "./router/cms/cms";
 const { createCallerFactory } = initTRPC.create()
 
 export const appRouter = route({
@@ -24,7 +25,8 @@ export const appRouter = route({
     address: addressRoute,
     keyContact: keyContactRouter,
     bucket: bucketRoute,
-    media: mediaRoute
+    media: mediaRoute,
+    cms: cmsRoute
 })
 
 export const createCaller = createCallerFactory(appRouter)
