@@ -17,6 +17,13 @@ function Company() {
     },
     onError: (error) => toast.error(`Error:${error.message}`)
   })
+  const { mutate:deleteCompany, isPending:isDeletePending } = trpc.cms.company.deleteCompany.useMutation({
+    onSuccess: () => {
+      toast.success("Company Deleted")
+      utils.cms.company.getCompany.invalidate()
+    },
+    onError: (error) => toast.error(`Error:${error.message}`)
+  })
   const { push } = useRouter()
   const { data, isLoading } = trpc.cms.company.getCompany.useQuery()
   if (isLoading) {
@@ -68,7 +75,7 @@ function Company() {
     <div className='w-full h-auto'>
       <div className="w-full flex m-6 justify-between items-center">
         <h2 className="text-2xl font-sans font-semibold">Company List</h2>
-        <Button onClick={() => mutate()}>Add Company</Button>
+        <Button disabled={isPending} onClick={() => mutate()}>Add Company</Button>
       </div>
       <div className='w-full grid grid-cols-4 gap-3'>
         {
@@ -125,8 +132,9 @@ function Company() {
                   onClick={(event) => {
                     event.stopPropagation(); // Prevents triggering the figure's onClick
                     if (confirm("Are you sure you want to delete this item?")) {
-                      // Call your delete logic here
-                      console.log("Delete", e.id);
+                      deleteCompany({
+                        id: e.id
+                      })
                     }
                   }}
                   className={cn(

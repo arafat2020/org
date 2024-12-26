@@ -16,7 +16,7 @@ export const companyRoute = route({
         id: z.string().min(1),
         name: z.optional(z.string()),
         link: z.optional(z.string()),
-        mediaId: z.optional(z.string())
+        mediaId: z.optional(z.union([z.string(),z.null()]))
     })).mutation(async ({ input }) => {
         const { id, ...data } = input
         const updated = await prisma.company.update({
@@ -43,5 +43,13 @@ export const companyRoute = route({
             }
         })
         return data
-    })
+    }),
+    getCompanyId: adminProcedure.input(z.object({
+        id: z.string().min(1)
+    })).query(async ({ input }) => {
+        const data = await prisma.company.findUnique({
+            where:input
+        })
+        return data
+    }),
 })
