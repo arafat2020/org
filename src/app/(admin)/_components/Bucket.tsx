@@ -30,9 +30,12 @@ function Bucket({
                 <Edit className='w-6 h-6' />
             </button>
             <button
-                onClick={() => deleteBucket({
-                    id
-                })}
+                onClick={(e) => {
+                    e.stopPropagation()
+                    if (confirm("Are you sure? The bucket and all media in this bucket will be deleted")) deleteBucket({
+                        id
+                    })
+                }}
             >
                 <Trash className='w-6 h-6' />
             </button>

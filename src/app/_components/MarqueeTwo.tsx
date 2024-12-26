@@ -68,7 +68,7 @@ async function MarqueeTwo() {
         <div className="relative flex h-auto w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background md:shadow-xl">
             <Marquee pauseOnHover className="[--duration:20s]">
                 {
-                    data.length < 3 ? data.map(e => (
+                    data.length > 2 ? data.map(e => (
                         <Company key={e.id} img={e?.pic?.url || '/industry.svg'} name={e.name}/>
                     )) : CompanyData.map((review) => (
                         <Company key={review.name} {...review} />
