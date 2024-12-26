@@ -37,7 +37,11 @@ export const companyRoute = route({
         return deleted
     }),
     getCompany: procedure.query(async () => {
-        const data = await prisma.company.findMany()
+        const data = await prisma.company.findMany({
+            include:{
+                pic:true
+            }
+        })
         return data
     })
 })
