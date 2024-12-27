@@ -12,7 +12,7 @@ export default function NotFound() {
         <h1 className="text-6xl font-extrabold text-red-400 mb-4 mt-4">404</h1>
         <h2 className="text-2xl font-semibold text-gray-100 mb-2">Page Not Found</h2>
         <p className="text-gray-400 mb-6">
-          Sorry, we couldn’t find the page you’re looking for or the page you are looking for or it is under maintenance.
+          Sorry, we couldn’t find the page you’re looking for or it is under maintenance.
         </p>
         <Link
           href="/"

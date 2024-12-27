@@ -123,11 +123,11 @@ model BannerPic {
 
 model Review {
   id      String  @id @default(uuid())
-  pic     Media   @relation(fields: [mediaId], references: [id])
+  pic     Media?   @relation(fields: [mediaId], references: [id])
   text    String
   name    String
   link    String?
-  mediaId String
+  mediaId String?
 }
 
 model Company {
