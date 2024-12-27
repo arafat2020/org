@@ -29,6 +29,10 @@ function Cms() {
             name: "Our factory",
             href: "/cms/our-factory"
         },
+        {
+            name: "Reviews",
+            href: "/cms/review"
+        }
     ]
     return (
         <div className="w-full h-auto grid grid-cols-5 gap-3">

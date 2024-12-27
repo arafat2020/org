@@ -26,7 +26,7 @@ function Review() {
                     <div className="h-10 bg-gray-700 rounded w-1/4"></div>
                 </div>
                 <div className='w-full grid grid-cols-4 gap-3'>
-                    <figure className='relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4 border-gray-200 bg-gray-700'>
+                    <figure className='relative col-span-1 cursor-pointer overflow-hidden rounded-xl border p-4 border-gray-200 bg-gray-700'>
                         <div className="flex flex-row items-center gap-2">
                             <div className="h-16 w-16 bg-gray-700 rounded-full"></div>
                             <div className="flex flex-col">
@@ -37,7 +37,7 @@ function Review() {
                         <div className="mt-2 h-10 bg-gray-700 rounded"></div>
                         <div className="mt-2 h-10 bg-gray-700 rounded"></div>
                     </figure>
-                    <figure className='relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4 border-gray-200 bg-gray-700'>
+                    <figure className='relative col-span-1 cursor-pointer overflow-hidden rounded-xl border p-4 border-gray-200 bg-gray-700'>
                         <div className="flex flex-row items-center gap-2">
                             <div className="h-16 w-16 bg-gray-700 rounded-full"></div>
                             <div className="flex flex-col">
@@ -48,7 +48,7 @@ function Review() {
                         <div className="mt-2 h-10 bg-gray-700 rounded"></div>
                         <div className="mt-2 h-10 bg-gray-700 rounded"></div>
                     </figure>
-                    <figure className='relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4 border-gray-200 bg-gray-700'>
+                    <figure className='relative col-span-1 cursor-pointer overflow-hidden rounded-xl border p-4 border-gray-200 bg-gray-700'>
                         <div className="flex flex-row items-center gap-2">
                             <div className="h-16 w-16 bg-gray-700 rounded-full"></div>
                             <div className="flex flex-col">
@@ -59,17 +59,18 @@ function Review() {
                         <div className="mt-2 h-10 bg-gray-700 rounded"></div>
                         <div className="mt-2 h-10 bg-gray-700 rounded"></div>
                     </figure>
-                </div><figure className='relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4 border-gray-200 bg-gray-700'>
-                    <div className="flex flex-row items-center gap-2">
-                        <div className="h-16 w-16 bg-gray-700 rounded-full"></div>
-                        <div className="flex flex-col">
-                            <div className="h-4 bg-gray-700 rounded w-3/4 mb-1"></div>
-                            <div className="h-4 bg-gray-700 rounded w-1/2"></div>
+                    <figure className='relative col-span-1 cursor-pointer overflow-hidden rounded-xl border p-4 border-gray-200 bg-gray-700'>
+                        <div className="flex flex-row items-center gap-2">
+                            <div className="h-16 w-16 bg-gray-700 rounded-full"></div>
+                            <div className="flex flex-col">
+                                <div className="h-4 bg-gray-700 rounded w-3/4 mb-1"></div>
+                                <div className="h-4 bg-gray-700 rounded w-1/2"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="mt-2 h-10 bg-gray-700 rounded"></div>
-                    <div className="mt-2 h-10 bg-gray-700 rounded"></div>
-                </figure>
+                        <div className="mt-2 h-10 bg-gray-700 rounded"></div>
+                        <div className="mt-2 h-10 bg-gray-700 rounded"></div>
+                    </figure>
+                </div>
             </div>
         )
     }
@@ -85,7 +86,7 @@ function Review() {
                         <figure
                             key={e.id}
                             className={cn(
-                                "relative w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
+                                "relative col-span-1 cursor-pointer overflow-hidden rounded-xl border p-4",
                                 // light styles
                                 "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
                                 // dark styles
@@ -102,34 +103,37 @@ function Review() {
                                 </div>
                             </div>
                             <blockquote className="mt-2 text-sm line-clamp-2">{e.text}</blockquote>
-                            <button
-                                onClick={(event) => {
-                                    event.stopPropagation(); // Prevents triggering the figure's onClick
-                                    push(`/cms/review/edit/${e.id}`);
-                                }}
-                                className={cn(
-                                    "flex-1 flex items-center justify-center gap-2 rounded-md border border-gray-950/[.2] bg-gray-950/[.05] py-2 text-sm font-medium text-gray-800 hover:bg-gray-950/[.1]",
-                                    "dark:border-gray-50/[.2] dark:bg-gray-50/[.05] dark:text-gray-200 dark:hover:bg-gray-50/[.1]"
-                                )}
-                            >
-                                <FiEdit2 className="h-4 w-4" /> Edit
-                            </button>
+                            <div className='mt-4 flex justify-between gap-2'>
+                                <button
+                                    onClick={(event) => {
+                                        event.stopPropagation(); // Prevents triggering the figure's onClick
+                                        push(`/cms/review/edit/${e.id}`);
+                                    }}
+                                    className={cn(
+                                        "flex-1 flex items-center justify-center gap-2 rounded-md border border-gray-950/[.2] bg-gray-950/[.05] py-2 text-sm font-medium text-gray-800 hover:bg-gray-950/[.1]",
+                                        "dark:border-gray-50/[.2] dark:bg-gray-50/[.05] dark:text-gray-200 dark:hover:bg-gray-50/[.1]"
+                                    )}
+                                >
+                                    <FiEdit2 className="h-4 w-4" /> Edit
+                                </button>
 
-                            {/* Delete Button */}
-                            <button
-                                onClick={(event) => {
-                                    event.stopPropagation(); // Prevents triggering the figure's onClick
-                                    if (confirm("Are you sure you want to delete this item?")) {
+                                {/* Delete Button */}
+                                <button
+                                    onClick={(event) => {
+                                        event.stopPropagation(); // Prevents triggering the figure's onClick
+                                        if (confirm("Are you sure you want to delete this item?")) {
 
-                                    }
-                                }}
-                                className={cn(
-                                    "flex-1 flex items-center justify-center gap-2 rounded-md border border-gray-950/[.2] bg-gray-950/[.05] py-2 text-sm font-medium text-gray-800 hover:bg-red-100",
-                                    "dark:border-gray-50/[.2] dark:bg-gray-50/[.05] dark:text-gray-200 dark:hover:bg-red-200 dark:hover:text-slate-700"
-                                )}
-                            >
-                                <FiTrash2 className="h-4 w-4 text-red-600" /> Delete
-                            </button>
+                                        }
+                                    }}
+                                    className={cn(
+                                        "flex-1 flex items-center justify-center gap-2 rounded-md border border-gray-950/[.2] bg-gray-950/[.05] py-2 text-sm font-medium text-gray-800 hover:bg-red-100",
+                                        "dark:border-gray-50/[.2] dark:bg-gray-50/[.05] dark:text-gray-200 dark:hover:bg-red-200 dark:hover:text-slate-700"
+                                    )}
+                                >
+                                    <FiTrash2 className="h-4 w-4 text-red-600" /> Delete
+                                </button>
+                            </div>
+                            
                         </figure>
                     ))
                 }
