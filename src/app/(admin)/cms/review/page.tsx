@@ -18,6 +18,13 @@ function Review() {
         },
         onError: (error) => toast.error(`Error:${error.message}`)
     })
+    const { mutate: deleteReview, isPending: deletePending } = trpc.cms.review.deleteReview.useMutation({
+        onSuccess: () => {
+            toast.success("Review Deleted")
+            utils.cms.review.getReview.invalidate()
+        },
+        onError: (error) => toast.error(`Error:${error.message}`)
+    })
     if (isLoading) {
         return (
             <div className='w-full h-auto animate-pulse'>
@@ -122,7 +129,9 @@ function Review() {
                                     onClick={(event) => {
                                         event.stopPropagation(); // Prevents triggering the figure's onClick
                                         if (confirm("Are you sure you want to delete this item?")) {
-
+                                            deleteReview({
+                                                id: e.id
+                                            })
                                         }
                                     }}
                                     className={cn(
@@ -133,7 +142,7 @@ function Review() {
                                     <FiTrash2 className="h-4 w-4 text-red-600" /> Delete
                                 </button>
                             </div>
-                            
+
                         </figure>
                     ))
                 }

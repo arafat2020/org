@@ -25,8 +25,8 @@ export const reviewRoute = route({
     id: z.string().min(1),
     name: z.optional(z.string()),
     text: z.optional(z.string()),
-    link: z.union([z.string(), z.null()]),
-    mediaId: z.union([z.string(), z.null()])
+    link: z.optional(z.union([z.string(), z.null()])),
+    mediaId: z.optional(z.union([z.string(), z.null()]))
   })).mutation(async ({ input }) => {
     const { id, ...data } = input
     const update = await prisma.review.update({
@@ -35,7 +35,7 @@ export const reviewRoute = route({
       },
       data
     })
-    return data
+    return update
   }),
   getReview: procedure.query(async () => {
     return prisma.review.findMany({

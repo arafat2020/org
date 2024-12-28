@@ -14,16 +14,20 @@ function Cms() {
             href: "/cms/banner"
         },
         {
-            name: "company",
-            href: "/cms/company"
+            name: "About Us",
+            href: "/cms/about-us"
         },
         {
             name: "Company OverView",
             href: "/cms/company-overview"
         },
         {
+            name: "List of Companies",
+            href: "/cms/company"
+        },
+        {
             name: "Why us",
-            href: "/cms/Why-us"
+            href: "/cms/why-us"
         },
         {
             name: "Our factory",

@@ -18,17 +18,19 @@ import { Button } from '@/components/ui/button'
 import { CheckCheck, ChevronsUpDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Checkbox } from '@/components/ui/checkbox'
-
-interface MediaManagerProp {
+interface MediaManagerPropBase {
     id: string,
-    mediaId: string | null,
     onUpdate: ({ }: { id: string, mediaId?: string | null }) => void
 }
+type MediaManagerProp =
+    | (MediaManagerPropBase & { mediaId: string | null; arrayOfIds?: never }) // When `id` is provided
+    | (MediaManagerPropBase & { mediaId?: never; arrayOfIds: string[] }); // When `arrayOfIds` is provided
 
 function MediaManager({
     id,
     mediaId,
-    onUpdate
+    onUpdate,
+    arrayOfIds
 }: MediaManagerProp) {
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("")
@@ -104,9 +106,9 @@ function MediaManager({
                 {
                     MediaList?.map(e => (
                         <div key={e.id} className='w-full flex space-x-3 cursor-pointer items-center border-[3px] bg-black/10 border-slate-800/50 rounded-md p-2'>
-                            <Checkbox checked={e.id === mediaId} onCheckedChange={() => onUpdate({
+                            <Checkbox checked={(e.id === mediaId) || !!arrayOfIds?.find(id => id === e.id)} onCheckedChange={() => onUpdate({
                                 id,
-                                mediaId: e.id === mediaId ? null : e.id
+                                mediaId: mediaId ? (e.id === mediaId ? null : e.id) :  (!!arrayOfIds?.find(id => id === e.id) ? null : e.id)
                             })} />
                             <img loading='lazy' src={e.url} alt={e.name} className='w-14 h-14 object-fill rounded-md' />
                             <p className='flex-grow font-sans font-semibold capitalize line-clamp-1'>{e.name}</p>

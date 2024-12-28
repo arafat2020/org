@@ -80,60 +80,60 @@ function EditKeyContact({ params }: { params: { id: string } }) {
   if (isLoading) {
     return (
       <div className="w-full h-auto animate-pulse">
-        <div className="h-6 bg-gray-200 rounded w-1/4 mb-4"></div>
+        <div className="h-6 bg-gray-700 rounded w-1/4 mb-4"></div>
         <div className="w-full flex space-x-6 mt-4">
           <div className="w-64 h-64 rounded-full border border-grey-200"></div>
           <form className="border border-gray-200 rounded-lg p-4 flex flex-col space-y-4 w-full flex-grow">
             {/* Profile Picture */}
             <div className="w-full flex flex-col space-y-1">
-              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-              <div className="h-10 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-700 rounded w-1/4"></div>
+              <div className="h-10 bg-gray-700 rounded"></div>
             </div>
 
             {/* Name */}
             <div className="w-full flex flex-col space-y-1">
-              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-              <div className="h-10 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-700 rounded w-1/4"></div>
+              <div className="h-10 bg-gray-700 rounded"></div>
             </div>
 
             {/* Designation */}
             <div className="w-full flex flex-col space-y-1">
-              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-              <div className="h-10 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-700 rounded w-1/4"></div>
+              <div className="h-10 bg-gray-700 rounded"></div>
             </div>
 
             {/* Speech */}
             <div className="w-full flex flex-col space-y-1">
-              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-              <div className="h-10 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-700 rounded w-1/4"></div>
+              <div className="h-10 bg-gray-700 rounded"></div>
             </div>
 
             {/* LinkedIn */}
             <div className="w-full flex flex-col space-y-1">
-              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-              <div className="h-10 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-700 rounded w-1/4"></div>
+              <div className="h-10 bg-gray-700 rounded"></div>
             </div>
 
             {/* Twitter */}
             <div className="w-full flex flex-col space-y-1">
-              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-              <div className="h-10 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-700 rounded w-1/4"></div>
+              <div className="h-10 bg-gray-700 rounded"></div>
             </div>
 
             {/* Email */}
             <div className="w-full flex flex-col space-y-1">
-              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-              <div className="h-10 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-700 rounded w-1/4"></div>
+              <div className="h-10 bg-gray-700 rounded"></div>
             </div>
 
             {/* Facebook */}
             <div className="w-full flex flex-col space-y-1">
-              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-              <div className="h-10 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-700 rounded w-1/4"></div>
+              <div className="h-10 bg-gray-700 rounded"></div>
             </div>
 
             {/* Submit Button */}
-            <div className="h-10 bg-gray-200 rounded"></div>
+            <div className="h-10 bg-gray-700 rounded"></div>
           </form>
         </div>
       </div>

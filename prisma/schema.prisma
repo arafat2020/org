@@ -116,14 +116,14 @@ model Address {
 
 model BannerPic {
   id      String  @id @default(uuid())
-  pic     Media   @relation(fields: [mediaId], references: [id])
+  pic     Media?  @relation(fields: [mediaId], references: [id])
   name    String?
-  mediaId String
+  mediaId String?
 }
 
 model Review {
   id      String  @id @default(uuid())
-  pic     Media?   @relation(fields: [mediaId], references: [id])
+  pic     Media?  @relation(fields: [mediaId], references: [id])
   text    String
   name    String
   link    String?
@@ -132,7 +132,7 @@ model Review {
 
 model Company {
   id      String  @id @default(uuid())
-  pic     Media?   @relation(fields: [mediaId], references: [id])
+  pic     Media?  @relation(fields: [mediaId], references: [id])
   name    String
   link    String?
   mediaId String?
@@ -144,19 +144,35 @@ model Bucket {
   media Media[]
 }
 
-model WhayUs {
-  id          String @id @default(uuid())
+model WhyUs {
+  id          String  @id @default(uuid())
   description String
-  media       Media  @relation(fields: [mediaId], references: [id])
-  mediaId     String
-  publish Boolean @default(false)
+  media       Media?  @relation(fields: [mediaId], references: [id])
+  mediaId     String?
+  isPublish   Boolean @default(false)
 }
 
 model CompanyOverView {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   description String
-  media       Media  @relation(fields: [mediaId], references: [id])
-  mediaId     String
+  media       Media?  @relation(fields: [mediaId], references: [id])
+  mediaId     String?
+  isPublish   Boolean @default(false)
+}
+
+model AboutUs {
+  id          String  @id @default(uuid())
+  description String
+  media       Media?  @relation(fields: [mediaId], references: [id])
+  mediaId     String?
+  isPublish   Boolean @default(false)
+}
+
+model Factory {
+  id          String  @id @default(uuid())
+  description String
+  media       Media[]
+  isPublish   Boolean @default(false)
 }
 
 model Media {
@@ -168,6 +184,9 @@ model Media {
   BannerPic       BannerPic[]
   Review          Review[]
   Company         Company[]
-  WhayUs          WhayUs[]
+  WhayUs          WhyUs[]
   CompanyOverView CompanyOverView[]
+  AboutUs         AboutUs[]
+  Factory         Factory?          @relation(fields: [factoryId], references: [id])
+  factoryId       String?
 }

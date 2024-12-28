@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import Marquee from "@/components/magicui/marquee";
 import { SparklesPreview } from "./SparkleHeading";
+import { serverClient } from "../_trpc/serverClient";
 
 const reviews = [
   {
@@ -79,12 +80,15 @@ const ReviewCard = ({
   );
 };
 
-export function MarqueeReview() {
+export async function MarqueeReview() {
+  const data = await serverClient.cms.review.getReview()
   return (
     <div className="relative flex h-auto w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background md:shadow-xl mt-10">
-      <SparklesPreview title="Review from Our Customer"/>
+      <SparklesPreview title="Reviews from Our Customer"/>
       <Marquee pauseOnHover className="[--duration:20s]">
-        {firstRow.map((review) => (
+        {data.length > 3 ? data.map(e=>(
+          <ReviewCard name={e.name} img={e.pic?.url || '/person.svg'} body={e.text} key={e.id} username={`@${e.name}`}/>
+        )):firstRow.map((review) => (
           <ReviewCard key={review.username} {...review} />
         ))}
       </Marquee>

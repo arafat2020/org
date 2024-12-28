@@ -12,16 +12,23 @@ import Factory from '../_components/Factory'
 
 async function Home() {
   const productForHome = await serverClient.product.getProductForHomepage()
+  const banner = await serverClient.cms.banner.getBannerForHome()
   return (
     <div className='w-full overflow-x-hidden overflow-y-scroll scrollbar-hide'>
-      <HeroParallax products={products} />
-      <Counter/>
-      <MarqueeTwo/>
-      <Overview/>
-      <WhyUs/>
-      <Products data={productForHome}/>
-      <Factory/>
-      <MarqueeReview/>
+      <HeroParallax products={banner.length > 6 ? banner.map(e => {
+        return {
+          link: "#",
+          thumbnail: e.pic?.url || "",
+          title: e.name || ""
+        }
+      }) : products} />
+      <Counter />
+      <MarqueeTwo />
+      <Overview />
+      <WhyUs />
+      <Products data={productForHome} />
+      <Factory />
+      <MarqueeReview />
     </div>
   )
 }

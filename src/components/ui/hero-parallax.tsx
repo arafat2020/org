@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import useOrigin from "@/hooks/useOrigin";
 
 export const HeroParallax = ({
   products,
@@ -27,7 +28,7 @@ export const HeroParallax = ({
     target: ref,
     offset: ["start start", "end start"],
   });
-
+  const origin = useOrigin()
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
   const translateX = useSpring(
@@ -128,7 +129,7 @@ export const ProductCard = ({
     thumbnail: string;
   };
   translate: MotionValue<number>;
-}) => {
+}) => {  
   return (
     <motion.div
       style={{
@@ -144,8 +145,8 @@ export const ProductCard = ({
         href={product.link}
         className="block group-hover/product:shadow-2xl "
       >
-        <Image
-          src={product.thumbnail}
+        <img
+          src={!!product.thumbnail.startsWith(`${"http"|| "https"}`)?product.thumbnail:`${origin}${product.thumbnail}`}
           height="600"
           width="600"
           className="object-cover object-left-top absolute h-full w-full inset-0 rounded-[25px]"
