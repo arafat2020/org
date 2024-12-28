@@ -4,21 +4,19 @@ import { z } from "zod";
 
 export const whyUsRoute = route({
     getWhyUs: procedure.query(async () => {
-        return prisma.$transaction(async ctx => {
-            const isExist = await ctx.whyUs.findFirst({
+            const isExist = await prisma.whyUs.findFirst({
                 include:{
                     media: true
                 }
             })
             if (isExist) return isExist
-            return ctx.whyUs.create({
+            return prisma.whyUs.create({
                 data: {
                     description: "No Description Provided"
                 },
                 include: {
                     media: true                }
             })
-        })
     }),
     editWhyUs: adminProcedure.input(z.object({
         id: z.string().min(1),

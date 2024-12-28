@@ -4,17 +4,16 @@ import { z } from "zod";
 
 export const aboutUsRoute = route({
     getAboutUs: procedure.query(async () => {
-        return prisma.$transaction(async ctx => {
-            const isExist = await ctx.aboutUs.findFirst()
+            const isExist = await prisma.aboutUs.findFirst()
             if (isExist) return isExist
-            return ctx.aboutUs.create({
+            return prisma.aboutUs.create({
                 data: {
                     description: "No Description Provided"
                 },
                 include: {
                     media: true                }
             })
-        })
+
     }),
     editAboutUs: adminProcedure.input(z.object({
         id: z.string().min(1),

@@ -4,8 +4,7 @@ import { z } from "zod";
 
 export const factoryRoute = route({
     getFactory: procedure.query(async () => {
-        return prisma.$transaction(async ctx => {
-            const isExist = await ctx.factory.findFirst({
+            const isExist = await prisma.factory.findFirst({
                 include: {
                     media:{
                         select:{
@@ -16,7 +15,7 @@ export const factoryRoute = route({
                 }
             })
             if (isExist) return isExist
-             const created = await ctx.factory.create({
+             const created = await prisma.factory.create({
                 data: {
                     description: "No Description Provided",
                 },
@@ -30,7 +29,7 @@ export const factoryRoute = route({
                 }
             })
             return created
-        })
+        
     }),
     editFactory: adminProcedure.input(z.object({
         id: z.string().min(1),
