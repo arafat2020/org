@@ -31,7 +31,7 @@ function Cms() {
         },
         {
             name: "Our factory",
-            href: "/cms/our-factory"
+            href: "/cms/factory"
         },
         {
             name: "Reviews",

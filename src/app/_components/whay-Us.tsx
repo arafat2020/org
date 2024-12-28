@@ -1,7 +1,43 @@
 import Link from "next/link";
 import { SparklesPreview } from "./SparkleHeading";
+import { serverClient } from "../_trpc/serverClient";
 
-export default function WhyUs() {
+export default async function WhyUs() {
+    const data = await serverClient.cms.whyUs.getWhyUs()
+    if (data.isPublish) {
+        return (
+            <section className="py-16">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Section Title */}
+                    <SparklesPreview title="Why Us" />
+
+                    {/* Content Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        {/* Image Section */}
+                        <img
+                            src={data?.media?.url || "/aboutbg.jpg"}
+                            alt="Why Us"
+                            className="rounded-lg w-full max-h-96 object-cover"
+                        />
+
+                        {/* Text Section */}
+                        <div>
+                            <p className="text-gray-700 dark:text-slate-100 mb-4">
+                                {data.description}
+                            </p>
+
+                            {/* Call-to-Action Link */}
+                            <Link
+                                href='/why-us'
+                                className="inline-block bg-gradient-to-tr from-white via-cyan-400 to-white dark:from-black dark:via-cyan-900 dark:to-black dark:text-white px-6 py-2 rounded">
+                                More info
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        )
+    }
     return (
         <section className="py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,9 +47,9 @@ export default function WhyUs() {
                 {/* Content Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     {/* Image Section */}
-                    <img 
-                        src="/aboutbg.jpg" 
-                        alt="Why Us" 
+                    <img
+                        src="/aboutbg.jpg"
+                        alt="Why Us"
                         className="rounded-lg w-full max-h-96 object-cover"
                     />
 
@@ -24,8 +60,8 @@ export default function WhyUs() {
                         </p>
 
                         {/* Call-to-Action Link */}
-                        <Link 
-                            href='/why-us' 
+                        <Link
+                            href='/why-us'
                             className="inline-block bg-gradient-to-tr from-white via-cyan-400 to-white dark:from-black dark:via-cyan-900 dark:to-black dark:text-white px-6 py-2 rounded">
                             More info
                         </Link>

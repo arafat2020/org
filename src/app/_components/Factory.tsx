@@ -1,11 +1,42 @@
+import { serverClient } from "../_trpc/serverClient";
 import { SparklesPreview } from "./SparkleHeading";
 
-export default function Factory() {
+export default async function Factory() {
+    const data = await serverClient.cms.factory.getFactory();
+    if (data.isPublish) {
+        return (
+            <section className="py-16 bg-transparent">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Title */}
+                    <SparklesPreview title="Our Factory" />
+
+                    {/* Description */}
+                    <p className="text-center text-gray-700 dark:text-slate-100 mb-8">
+                        {data.description}
+                    </p>
+
+                    {/* Responsive Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {
+                            data.media.map(e => (
+                                <img
+                                    key={e.id}
+                                    src={e.url || "/industry.svg"}
+                                    alt="factory"
+                                    className="rounded-lg w-full object-cover"
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
+            </section>
+        )
+    }
     return (
         <section className="py-16 bg-transparent">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Title */}
-                <SparklesPreview title="Our Factory"/>
+                <SparklesPreview title="Our Factory" />
 
                 {/* Description */}
                 <p className="text-center text-gray-700 dark:text-slate-100 mb-8">

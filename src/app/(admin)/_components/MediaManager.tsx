@@ -108,7 +108,7 @@ function MediaManager({
                         <div key={e.id} className='w-full flex space-x-3 cursor-pointer items-center border-[3px] bg-black/10 border-slate-800/50 rounded-md p-2'>
                             <Checkbox checked={(e.id === mediaId) || !!arrayOfIds?.find(id => id === e.id)} onCheckedChange={() => onUpdate({
                                 id,
-                                mediaId: mediaId ? (e.id === mediaId ? null : e.id) :  (!!arrayOfIds?.find(id => id === e.id) ? null : e.id)
+                                mediaId: mediaId ? (e.id === mediaId ? null : e.id) : e.id
                             })} />
                             <img loading='lazy' src={e.url} alt={e.name} className='w-14 h-14 object-fill rounded-md' />
                             <p className='flex-grow font-sans font-semibold capitalize line-clamp-1'>{e.name}</p>

@@ -49,15 +49,39 @@ export const factoryRoute = route({
         id: z.string().min(1),
         mediaId: z.string().min(1)
     })).mutation(async ({ input }) => {
-        return prisma.factory.update({
-            where: {
-                id: input.id
-            },
-            data: {
-                media: {
-                    connect: { id: input.mediaId }
-                }
+        return prisma.$transaction(async ctx=>{
+            const isConnect = await ctx.factory.findUnique({
+                where:{
+                    id: input.id,
+                    media:{
+                        some:{
+                            id: input.mediaId
+                        }
+                    }
+                },
+            })
+            if(isConnect){
+                return ctx.factory.update({
+                    where: {
+                        id: input.id
+                    },
+                    data: {
+                        media: {
+                            disconnect: { id: input.mediaId }
+                        }
+                    }
+                })
             }
+            return ctx.factory.update({
+                where: {
+                    id: input.id
+                },
+                data: {
+                    media: {
+                        connect: { id: input.mediaId }
+                    }
+                }
+            })
         })
     })
 })
