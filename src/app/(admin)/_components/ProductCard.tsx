@@ -111,7 +111,9 @@ function ProductCard({
                     {name}
                 </CardTitle>
                 <CardDescription className='line-clamp-3'>
-                    {description}
+                    <div className='w-full' dangerouslySetInnerHTML={{
+                        __html:description
+                    }}/>
                 </CardDescription>
                 <CardContent>
                     <img src={`${origin}${primaryImg}`} alt='product' className='w-[80%] h-[300px] rounded-[20px] mx-auto py-3' />

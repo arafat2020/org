@@ -80,7 +80,11 @@ function Details({ params }: { params: { id: string } }) {
                                     <p className="text-xs font-medium dark:text-white/40">{e.SubCategory?.name}</p>
                                 </div>
                             </div>
-                            <blockquote className="mt-2 text-sm line-clamp-3">{e.description}</blockquote>
+                            <blockquote className="mt-2 text-sm line-clamp-3">
+                                <div className='w-full' dangerouslySetInnerHTML={{
+                                    __html: e.description
+                                }} />
+                            </blockquote>
                         </figure>
                     ))
                 }

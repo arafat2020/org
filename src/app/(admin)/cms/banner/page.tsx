@@ -115,7 +115,7 @@ function Banner() {
         <h2 className="text-2xl font-sans font-semibold">Banner List</h2>
         <Button disabled={isPending} onClick={() => mutate()}>Add Banner</Button>
       </div>
-      <div className='w-full grid grid-cols-4 gap-3'>
+      <div className='w-full grid xsm:gird-cols-2 md:grid-cols-3 lg:gird-cols-4 gap-3'>
         {
           data?.map(e => (
 
