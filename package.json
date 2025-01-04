@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon --turbo",
-    "build": "next build && tsc --project tsconfig.server.json",
-    "start": "cross-env NODE_ENV=production node dist/server.js",
+    "dev": "node init && nodemon --turbo",
+    "build": "node init && next build && tsc --project tsconfig.server.json",
+    "start": "node init && cross-env NODE_ENV=production node dist/server.js",
     "postinstall": "npx prisma generate",
     "lint": "next lint",
     "boast": "npm run build && npm start"
